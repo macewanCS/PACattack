@@ -772,7 +772,7 @@ var IPython = (function (IPython) {
             }
             
             // clear all, no need for logic
-            this.element.html("");
+            this.element.html("OUTPUT: ");
             this.outputs = [];
             this.trusted = true;
             this.unscroll_area();

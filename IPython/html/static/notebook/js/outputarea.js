@@ -237,7 +237,8 @@ var IPython = (function (IPython) {
         var msg_type = json.output_type = msg.header.msg_type;
         var content = msg.content;
         if (msg_type === "stream") {
-            json.text = content.data;
+            var lines = content.data.split(/\r\n|\r|\n/);
+            json.text = content.data + "Number of Lines: " + (lines.length-1);
             json.stream = content.name;
         } else if (msg_type === "display_data") {
             json = content.data;
@@ -256,6 +257,7 @@ var IPython = (function (IPython) {
         this.append_output(json);
     };
 
+    
     OutputArea.mime_map = {
         "text/plain" : "text",
         "text/html" : "html",
@@ -772,7 +774,7 @@ var IPython = (function (IPython) {
             }
             
             // clear all, no need for logic
-            this.element.html("OUTPUT: ");
+            this.element.html("");
             this.outputs = [];
             this.trusted = true;
             this.unscroll_area();

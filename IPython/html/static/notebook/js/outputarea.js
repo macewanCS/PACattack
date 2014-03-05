@@ -238,7 +238,8 @@ var IPython = (function (IPython) {
         var content = msg.content;
         if (msg_type === "stream") {
             var lines = content.data.split(/\r\n|\r|\n/);
-            json.text = content.data + "Number of Lines: " + (lines.length-1);
+            json.text = content.data;
+	    //json.text = content.data + "Number of Lines: " + (lines.length-1);
             json.stream = content.name;
         } else if (msg_type === "display_data") {
             json = content.data;

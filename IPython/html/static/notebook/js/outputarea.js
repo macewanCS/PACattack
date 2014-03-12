@@ -594,16 +594,29 @@ var IPython = (function (IPython) {
         if (extra_class){
             toinsert.addClass(extra_class);
         }
+        
+        data=data;
+         toinsert.append($("<pre/>").html(data));
 
 		//output canvas when showmeetheturtle present
         if (data.search("showmetheturtle") > 0) {
-         	var c = "<canvas id=\"myCanvas\" width=\"600\" height=\"600\" style=\"border:1px solid #000000;\" onmousedown=\"change_coords(event)\"\">";
-			
-         	data = data + c;
-         }
+         	var c = document.createElement('canvas');
+			c.id = 'canvas1';
+			c.width = 400;
+			c.height = 400;
+			var ctx = c.getContext("2d");
+			var imageObj = new Image();
+			imageObj.onload = function() {
+ 				//draw turtle where the coordinates of the line are
+  				ctx.drawImage(imageObj, 30, 30);
+   			 };
+    	
+    		imageObj.src = 'http://www.andrewkind.com/js/turtle60.png';
+			toinsert.append(c);
+		}
         
         
-        toinsert.append($("<pre/>").html(data));
+        
      	//line count feature, when countthelines present
         if (data.search("countthelines") > 0) {
     		var lines = data.split(/\r\n|\r|\n/);

@@ -3,12 +3,18 @@
 <body>
 
  <!--Create a html canvas for turtle app-->
-<canvas id="myCanvas" width="400" height="300" style="border:1px solid #000000;" onmousedown="change_coords(event)"">
+<canvas id="myCanvas" width="600" height="600" style="border:1px solid #000000;" onmousedown="change_coords(event)"">
 Your browser does not support the HTML5 canvas tag.</canvas>
+
+ <button onclick="makeCircle()" type="button">Make a circle!</button> 
+ 
+ <button onclick="move(100)" type="button">Move 100</button>
+
+ <button onclick="rotateRight()" type="button">Turn 90 degrees right</button>  
 
 <script>
 
-
+	
     var c=document.getElementById("myCanvas");
     
 	//Create to Context variables: one for the turtle, one for the line
@@ -19,29 +25,35 @@ Your browser does not support the HTML5 canvas tag.</canvas>
     ctx.strokeStyle = "#ff0000";
 
 	// size of canvas
-    width = 800;
-    height = 600;
+    var width = 600;
+    var height = 600;
+	
+	widthcenter = 600 /2;
+	heightcenter = 600 /2;
 
 	//coordinates used for line stroke
     var xcoord = 0;
     var ycoord = 0;
 
-
+	//create variable for intervals 
+	var myVar;
+	
 	//turtle image
     var imageObj = new Image();
 
     imageObj.onload = function() {
-
+	
 		//draw turtle where the coordinates of the line are
-        ctx2.drawImage(imageObj, xcoord, ycoord);
+		
+        ctx2.drawImage(imageObj, xcoord-15, ycoord -20);
     };
-    imageObj.src = 'http://www.andrewkind.com/js/turtle.png';
+    imageObj.src = 'http://www.andrewkind.com/js/turtle60.png';
 
-    ctx.moveTo(xcoord,ycoord);
+    
 
-
-	//When app starts, make it draw a line towards bottom-left
-    var myVar =      setInterval(function(){
+	
+	//When app starts, make it draw a line towards bottom-left (change this to spawn in middle.)
+   /* var myVar =      setInterval(function(){
 
 
         ctx2.clearRect(0,0,width,height);
@@ -55,9 +67,16 @@ Your browser does not support the HTML5 canvas tag.</canvas>
         //ctx.translate(1,1);
         //  if (xcoord == 200) {    clearInterval(myVar); }
 
-    },10);
+    },10); */
+	
+	
+		// set up coordinates to middle of canvas
+		xcoord = 200;
+		ycoord = 200;
+		ctx.moveTo(xcoord,ycoord);
+	    
 
-
+	
 	//When user clicks on canvas, adjust the coordinates and begin drawing line towards coords
     function change_coords(event)
     {
@@ -66,7 +85,7 @@ Your browser does not support the HTML5 canvas tag.</canvas>
         var x=event.clientX;
         var y=event.clientY;
 
-
+		
 		//stop initial line drawing
         clearInterval(myVar);
 
@@ -75,9 +94,9 @@ Your browser does not support the HTML5 canvas tag.</canvas>
 
 			//clear turtle, and redraw turtle at new location
             ctx2.clearRect(0,0,width,height);
-            ctx2.drawImage(imageObj, xcoord - 15, ycoord - 15);
+            ctx2.drawImage(imageObj, xcoord - 15, ycoord - 20);
 
-
+			
 			//Stroke line towards new coordinates.
             if (x > xcoord){
 
@@ -110,6 +129,78 @@ Your browser does not support the HTML5 canvas tag.</canvas>
             if ((xcoord == x) && (ycoord == y)) {    clearInterval(myVar); }
         },10);
     }
+	
+	function rotateRight() {
+			
+			var degrees = 90;
+			
+			
+		  ctx2.translate(xcoord-300, ycoord -300);
+		  ctx2.rotate(degrees*Math.PI/180); //rotate in origin
+		  
+		  ctx2.translate(-xcoord+300, -xcoord+300);
+			
+			
+			    ctx2.clearRect(0,0,width,height);
+            ctx2.drawImage(imageObj, xcoord - 15, ycoord - 20);
+
+			
+		
+		}
+		
+		
+	function move(distance) {
+	//set coords as 100 ahead
+        var x=xcoord;
+        var y=ycoord - 100;
+
+		
+		//stop line drawing if any in progress
+        clearInterval(myVar);
+
+		//begin new line drawing
+        myVar = setInterval(function(){
+
+			//clear turtle, and redraw turtle at new location
+            ctx2.clearRect(0,0,width,height);
+            ctx2.drawImage(imageObj, xcoord -15, ycoord - 20);
+
+			
+			//Stroke line towards new coordinates.
+            if (x > xcoord){
+
+                xcoord+= 1;
+                ctx.lineTo(xcoord,ycoord);
+                        }
+            if (x < xcoord){
+
+                xcoord-= 1;
+                ctx.lineTo(xcoord,ycoord);
+                        }
+
+            if (y > ycoord){
+
+                ycoord+= 1;
+                ctx.lineTo(xcoord,ycoord);
+            }
+
+            if (y < ycoord){
+
+                ycoord-= 1;
+                ctx.lineTo(xcoord,ycoord);
+            }
+                              
+            myColor = '#ff' + '0000';                 
+            ctx.strokeStyle = myColor;
+            ctx.stroke();
+
+			// If we have reached coords, stop
+            if ((xcoord == x) && (ycoord == y)) {    clearInterval(myVar); }
+        },10);
+	
+	
+		}
+		
 </script>
 </body>
 </html>

@@ -239,7 +239,7 @@ var IPython = (function (IPython) {
         if (msg_type === "stream") {
             var lines = content.data.split(/\r\n|\r|\n/);
             json.text = content.data;
-	    //json.text = content.data + "Number of Lines: " + (lines.length-1);
+	   		//json.text = content.data + "Number of Lines: " + (lines.length-1);
             json.stream = content.name;
         } else if (msg_type === "display_data") {
             json = content.data;
@@ -594,7 +594,23 @@ var IPython = (function (IPython) {
         if (extra_class){
             toinsert.addClass(extra_class);
         }
+     
+        //output html canvas when "showmetheturtle" is present
+       /*  if (data.search("showmetheturtle") > 0) {
+         	var c = "<canvas id=\"myCanvas\" width=\"400\" height=\"300\" style=\"border:1px solid #000000;\" onmousedown=\"change_coords(event)\"\">";
+         	data = data + c;
+         }*/
+        if (data.search("showmetheturtle") > 0) {
+         	var c = "<iframe width=\"500\" height=\"300\" frameborder=\"no\" scrolling=\"no\" marginheight=\"0\"   marginwidth=\"0\" src=\"./IPython/extensions/line.html\"></iframe>"
+         	data = data + c;
+         }
         toinsert.append($("<pre/>").html(data));
+     	//line count feature, when countthelines present
+        if (data.search("countthelines") > 0) {
+    		var lines = data.split(/\r\n|\r|\n/);
+            var linedata = "Number of Lines: " + (lines.length-1);
+        	toinsert.append($("<pre/>").html(linedata));
+        }   
         element.append(toinsert);
     };
 

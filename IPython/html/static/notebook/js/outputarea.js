@@ -608,7 +608,7 @@ var IPython = (function (IPython) {
 			var imageObj = new Image();
 			imageObj.onload = function() {
  				//draw turtle where the coordinates of the line are
-  				ctx.drawImage(imageObj, 30, 30);
+  				ctx.drawImage(imageObj, 50, 50);
    			 };
     	
     		imageObj.src = 'http://www.andrewkind.com/js/turtle60.png';

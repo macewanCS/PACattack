@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+ <!--Create a html canvas for turtle app-->
+<canvas id="myCanvas" width="400" height="300" style="border:1px solid #000000;" onmousedown="change_coords(event)"">
+Your browser does not support the HTML5 canvas tag.</canvas>
+
+<script>
+
+
+    var c=document.getElementById("myCanvas");
+    
+	//Create to Context variables: one for the turtle, one for the line
+	var ctx=c.getContext("2d");
+    var ctx2=c.getContext("2d");
+                                                       
+	//Change color of line stroke
+    ctx.strokeStyle = "#ff0000";
+
+	// size of canvas
+    width = 800;
+    height = 600;
+
+	//coordinates used for line stroke
+    var xcoord = 0;
+    var ycoord = 0;
+
+
+	//turtle image
+    var imageObj = new Image();
+
+    imageObj.onload = function() {
+
+		//draw turtle where the coordinates of the line are
+        ctx2.drawImage(imageObj, xcoord, ycoord);
+    };
+    imageObj.src = 'http://www.andrewkind.com/js/turtle.png';
+
+    ctx.moveTo(xcoord,ycoord);
+
+
+	//When app starts, make it draw a line towards bottom-left
+    var myVar =      setInterval(function(){
+
+
+        ctx2.clearRect(0,0,width,height);
+        ctx2.drawImage(imageObj, xcoord - 15, ycoord - 15);
+        
+        ctx.lineTo(xcoord,ycoord);
+        ctx.stroke();
+
+        ycoord+= 1;
+        xcoord+= 1;
+        //ctx.translate(1,1);
+        //  if (xcoord == 200) {    clearInterval(myVar); }
+
+    },10);
+
+
+	//When user clicks on canvas, adjust the coordinates and begin drawing line towards coords
+    function change_coords(event)
+    {
+
+		//set coords as where user clicked
+        var x=event.clientX;
+        var y=event.clientY;
+
+
+		//stop initial line drawing
+        clearInterval(myVar);
+
+		//begin new line drawing
+        myVar =      setInterval(function(){
+
+			//clear turtle, and redraw turtle at new location
+            ctx2.clearRect(0,0,width,height);
+            ctx2.drawImage(imageObj, xcoord - 15, ycoord - 15);
+
+
+			//Stroke line towards new coordinates.
+            if (x > xcoord){
+
+                xcoord+= 1;
+                ctx.lineTo(xcoord,ycoord);
+                        }
+            if (x < xcoord){
+
+                xcoord-= 1;
+                ctx.lineTo(xcoord,ycoord);
+                        }
+
+            if (y > ycoord){
+
+                ycoord+= 1;
+                ctx.lineTo(xcoord,ycoord);
+            }
+
+            if (y < ycoord){
+
+                ycoord-= 1;
+                ctx.lineTo(xcoord,ycoord);
+            }
+                              
+            myColor = '#ff' + '0000';                 
+            ctx.strokeStyle = myColor;
+            ctx.stroke();
+
+			// If we have reached coords, stop
+            if ((xcoord == x) && (ycoord == y)) {    clearInterval(myVar); }
+        },10);
+    }
+</script>
+</body>
+</html>

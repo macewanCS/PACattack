@@ -606,6 +606,8 @@ var IPython = (function (IPython) {
 		myscript.src = './IPython/html/static/notebook/js/mypaper.js';
 		
 			toinsert.append($("<div/>").html(myscript));
+			
+			
 			//toinsert.append(c);
 			
 		//}

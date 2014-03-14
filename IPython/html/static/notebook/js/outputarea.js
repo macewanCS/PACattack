@@ -599,21 +599,42 @@ var IPython = (function (IPython) {
          toinsert.append($("<pre/>").html(data));
 
 		//output canvas when showmeetheturtle present
-        if (data.search("showmetheturtle") > 0) {
+        //if (data.search("showmetheturtle") > 0) {
          	var c = document.createElement('canvas');
 			c.id = 'canvas1';
 			c.width = 400;
 			c.height = 400;
+			
+			var xcoord = 50;
+			var ycoord = 70;
+			
 			var ctx = c.getContext("2d");
 			var imageObj = new Image();
 			imageObj.onload = function() {
  				//draw turtle where the coordinates of the line are
-  				ctx.drawImage(imageObj, 50, 50);
+  				ctx.drawImage(imageObj, xcoord, ycoord);
    			 };
     	
     		imageObj.src = 'http://www.andrewkind.com/js/turtle60.png';
 			toinsert.append(c);
+		//}
+		
+		//output canvas when showmeetheturtle present
+        if (data.search("PAC: forward") != -1) {
+         	
+			ycoord = ycoord - 30; //increase y 
+			ctx.drawImage(imageObj, 50, 10);
+			
 		}
+		
+		if (data.search("PAC: back") != -1) {
+         	
+			
+			ctx.drawImage(imageObj, 50, 180);
+			
+		}
+		
+		
         
         
         

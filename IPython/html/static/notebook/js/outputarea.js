@@ -596,7 +596,8 @@ var IPython = (function (IPython) {
         }
         
         data=data;
-         toinsert.append($("<pre/>").html(data));
+         // Hiding output statements!
+		 //toinsert.append($("<pre/>").html(data));
 
 		//output canvas when showmeetheturtle present
         //if (data.search("showmetheturtle") > 0) {
@@ -604,11 +605,18 @@ var IPython = (function (IPython) {
 			c.id = 'canvas1';
 			c.width = 400;
 			c.height = 400;
+			c.style = "border:1px solid #000000;";
 			
 			var xcoord = 50;
 			var ycoord = 70;
 			
 			var ctx = c.getContext("2d");
+			
+			
+			ctx.fillStyle = "#9ea7b8";
+			ctx.opacity = 0.2;
+			ctx.fill();
+			
 			var imageObj = new Image();
 			imageObj.onload = function() {
  				//draw turtle where the coordinates of the line are
@@ -617,6 +625,9 @@ var IPython = (function (IPython) {
     	
     		imageObj.src = 'http://www.andrewkind.com/js/turtle60.png';
 			toinsert.append(c);
+			
+			
+			$('#output_subarea output_text output_stream output_stdout').hide();
 		//}
 		
 		//output canvas when showmeetheturtle present
@@ -626,6 +637,8 @@ var IPython = (function (IPython) {
 			ctx.drawImage(imageObj, 50, 10);
 			
 		}
+		
+		
 		
 		if (data.search("PAC: back") != -1) {
          	

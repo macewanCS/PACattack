@@ -1,10 +1,16 @@
 <!DOCTYPE html>
 <html>
 
+<body>
+
+	<canvas id="myCanvas" resize></canvas>
+	
+</body>
+
 
 <head>
 <!-- Load the Paper.js library -->
-<script type="text/javascript" src="paper.js"></script>
+<script type="text/javascript" src="http://www.andrewkind.com/paper.js"></script>
 <!-- Define inlined PaperScript associate it with myCanvas -->
 
 
@@ -15,17 +21,21 @@
 
 	// Move the raster to the center of the view
 	
+	// home coordinates
 	var xhome = 150;
 	var yhome = 150;
+	
+	// turtle coordinates
 	var xcoord = xhome;
 	var ycoord = yhome;
 	
+	// image position
 	raster.position = (xcoord, xcoord);
 
-	// Scale the raster by 50%
+	// Scale the image by 50%
 	raster.scale(0.5);
 
-	
+	// create path object for turtle
 	var turtlePath = new Path();
 	turtlePath.strokeColor = 'black';
 	turtlePath.add(new Point (xcoord, xcoord));
@@ -34,6 +44,8 @@
 	
 	angle = 0; //this is to keep track of the turtles angle.
 	
+	
+	//sample commands 
 	var event1 = [];
 	event1.command = "forward";
 	event1.amount = 40;
@@ -50,8 +62,10 @@
 	event4.command = "right";
 	event4.amount = 45;
 	
+	//list of events
 	var eventList = [];
 	
+	//add samples into event list
 	eventList.push (event1);
 	eventList.push (event2);
 	eventList.push (event3);
@@ -59,20 +73,22 @@
 	
 	
 	var x = 0;
-	
 	function onFrame(event) {				
-		
+		//we must check which command is issued, starting at x = 0 (first event in list eventList)
 			if (eventList[x].command == "forward") {
 			
+				//check if we have amount value (our distance to travel)
 				if (eventList[x].amount > 0) {
+					//move turtle
 					raster.translate(0,-1); 
 				
+					//decrement distance
 					eventList[x].amount--;
 					ycoord--;
 					turtlePath.add(new Point (xcoord, ycoord)); // increase path
 				}
 				else {
-					
+					//check if we have to increment to next event, or are we done
 					if (x < eventList.length-1) {
 					x++; 
 					console.log("finished event " + x);
@@ -83,12 +99,15 @@
 			if (eventList[x].command == "right") {
 			
 				if (eventList[x].amount > 0) {
+					//rotate one degree
 					raster.rotate(1); 
 				
+					//decrement our event angle
 					eventList[x].amount--;
-					angle++; //increment our angle
+					angle++; //increment our turtle angle
 				}
 				else {
+					//check if we have to increment to next event, or are we done
 					if (x < eventList.length-1) {
 				
 					x++; 
@@ -113,8 +132,6 @@
 			
 	}  //END ON FRAME FUNCTION
 	
-	
-	
 	// test function for onkeydown
 	/*  
 	function onKeyDown(event) {
@@ -122,22 +139,9 @@
 	raster.rotate(1);
 	} */
 	
-	
-	
 </script>
 
 </head>
 
 
-<body>
-
-
- 
-	<canvas id="myCanvas" resize></canvas>
-	
-	
-
-	
-	
-</body>
 </html>

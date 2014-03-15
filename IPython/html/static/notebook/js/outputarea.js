@@ -599,11 +599,9 @@ var IPython = (function (IPython) {
          // Hiding output statements!
 		 //toinsert.append($("<pre/>").html(data));
 
-		//output canvas when showmeetheturtle present
-        //if (data.search("showmetheturtle") > 0) {
-
-		//var myscript = document.createElement('script');
-		//myscript.src = './IPython/html/static/notebook/js/mypaper.js';
+		var myscript = document.createElement('script');
+		myscript.type = 'text/javascript';
+		myscript.src = './IPython/html/static/notebook/js/mypaper.js';
 		
 		
 	

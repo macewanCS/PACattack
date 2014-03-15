@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+
+
+<head>
+<!-- Load the Paper.js library -->
+<script type="text/javascript" src="paper.js"></script>
+<!-- Define inlined PaperScript associate it with myCanvas -->
+
+
+<script type="text/paperscript" canvas="myCanvas">
+		
+	// Create a raster item using the image tag with id='mona'
+	var raster = new Raster('turtle.png');
+
+	// Move the raster to the center of the view
+	
+	var xhome = 150;
+	var yhome = 150;
+	var xcoord = xhome;
+	var ycoord = yhome;
+	
+	raster.position = (xcoord, xcoord);
+
+	// Scale the raster by 50%
+	raster.scale(0.5);
+
+	
+	var turtlePath = new Path();
+	turtlePath.strokeColor = 'black';
+	turtlePath.add(new Point (xcoord, xcoord));
+	
+	//Lets create a list of events...
+	
+	angle = 0; //this is to keep track of the turtles angle.
+	
+	var event1 = [];
+	event1.command = "forward";
+	event1.amount = 40;
+	
+	var event2 = [];
+	event2.command = "right";
+	event2.amount = 67;
+	
+	var event3 = [];
+	event3.command = "forward";
+	event3.amount = 30;
+	
+	var event4 = [];
+	event4.command = "right";
+	event4.amount = 45;
+	
+	var eventList = [];
+	
+	eventList.push (event1);
+	eventList.push (event2);
+	eventList.push (event3);
+	eventList.push (event4);
+	
+	
+	var x = 0;
+	
+	function onFrame(event) {				
+		
+			if (eventList[x].command == "forward") {
+			
+				if (eventList[x].amount > 0) {
+					raster.translate(0,-1); 
+				
+					eventList[x].amount--;
+					ycoord--;
+					turtlePath.add(new Point (xcoord, ycoord)); // increase path
+				}
+				else {
+					
+					if (x < eventList.length-1) {
+					x++; 
+					console.log("finished event " + x);
+					}
+				}
+			}
+			
+			if (eventList[x].command == "right") {
+			
+				if (eventList[x].amount > 0) {
+					raster.rotate(1); 
+				
+					eventList[x].amount--;
+					angle++; //increment our angle
+				}
+				else {
+					if (x < eventList.length-1) {
+				
+					x++; 
+					console.log("finished event " + x);
+					}
+				}
+			}
+			
+			if (eventList[x].command == "forwardAngle") {
+			
+				//we need to figure out x and y points to reach
+				var xDest;
+				var yDest;
+				
+				var angleRadians = (angle * (Math.PI / 180))
+				
+				yDest = eventList[x].amount * Math.sin(angleRadians);
+				xDest = eventList[x].amount * Math.cos(angleRadians);
+			
+				turtlePath.add(new Point (xDest, yDest)); // increase path
+			}				
+			
+	}  //END ON FRAME FUNCTION
+	
+	
+	
+	// test function for onkeydown
+	/*  
+	function onKeyDown(event) {
+	raster.translate(0,-1); 
+	raster.rotate(1);
+	} */
+	
+	
+	
+</script>
+
+</head>
+
+
+<body>
+
+
+ 
+	<canvas id="myCanvas" resize></canvas>
+	
+	
+
+	
+	
+</body>
+</html>

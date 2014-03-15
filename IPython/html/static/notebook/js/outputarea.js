@@ -602,13 +602,28 @@ var IPython = (function (IPython) {
 		//output canvas when showmeetheturtle present
         //if (data.search("showmetheturtle") > 0) {
 
-		var myscript = document.createElement('script');
-		myscript.src = './IPython/html/static/notebook/js/mypaper.js';
+		//var myscript = document.createElement('script');
+		//myscript.src = './IPython/html/static/notebook/js/mypaper.js';
 		
-			toinsert.append($("<div/>").html(myscript));
+		
+	
+		var c = document.createElement('canvas');
+		var canvas = document.getElementById('c');
+		// Create an empty project and a view for the canvas:
+	
+		
+		c.id = 'canvas1';
+		c.width = 400;
+		c.height = 400;
+		c.style = "border:1px solid #000000;";
+		
+		toinsert.append(c);
+	
+	
+		//toinsert.append($("<div/>").html(myscript));
 			
 			
-			//toinsert.append(c);
+			
 			
 		//}
 		

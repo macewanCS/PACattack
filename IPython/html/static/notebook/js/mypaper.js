@@ -1,28 +1,30 @@
          	
 			alert("mypaper.js is running.");
-			var c = document.createElement('canvas');
-			c.id = 'canvas1';
-			c.width = 400;
-			c.height = 400;
-			c.style = "border:1px solid #000000;";
+			var d = document.getElementById('canvas1');
+
+			paper.setup(d);
+
+			
+			//var whatIf = document.getElementById('myString');
+			//alert(whatIf);
+			
+			d.style = "border:1px solid #000000;";
 			
 			var xcoord = 50;
 			var ycoord = 70;
 			
-			var ctx = c.getContext("2d");
 			
+			var turtlePath = new paper.Path();
+			turtlePath.strokeColor = 'black';
+			turtlePath.add(new paper.Point (xcoord, ycoord));
 			
-			ctx.fillStyle = "#9ea7b8";
-			ctx.opacity = 0.2;
-			ctx.fill();
+			turtlePath.add(new paper.Point (100, 100));
+
+			var raster = new paper.Raster('/static/notebook/js/turtle.png');		
+			raster.position = (100, 100);
 			
-			var imageObj = new Image();
-			imageObj.onload = function() {
- 				//draw turtle where the coordinates of the line are
-  				ctx.drawImage(imageObj, xcoord, ycoord);
-   			 };
-    	
-    		imageObj.src = 'http://www.andrewkind.com/js/turtle60.png';
+			var test1 = ($(".myString")).text();
+			alert(test1);
 			
 			
 			

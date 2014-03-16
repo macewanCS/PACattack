@@ -618,7 +618,7 @@ var IPython = (function (IPython) {
 		toinsert.append(c);
 	
 	
-		//toinsert.append($("<div/>").html(myscript));
+		toinsert.append($("<div/>").html(myscript));
 			
 			
 			

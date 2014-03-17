@@ -127,6 +127,29 @@
 	event20.command = "forward";
 	event20.amount = 35;
 	
+	var event21 = [];
+	event21.command = "home";	
+	
+	var event22 = [];
+	event22.command = "right";
+	event22.amount = 14;
+	
+	var event23 = [];
+	event23.command = "forward";
+	event23.amount = 72;
+	
+	var event24 = [];
+	event24.command = "left";
+	event24.amount = 54;
+	
+	var event25 = [];
+	event25.command = "backward";
+	event25.amount = 72;
+	
+	var event26 = [];
+	event26.command = "left";
+	event26.amount = 32;
+	
 	//list of events
 	var eventList = [];
 	
@@ -151,6 +174,13 @@
 	eventList.push (event18);
 	eventList.push (event19);
 	eventList.push (event20);
+	eventList.push (event21);
+	eventList.push (event22);
+	eventList.push (event23);
+	eventList.push (event24);
+	eventList.push (event25);
+	eventList.push (event26);
+
 	//eventList.push (event5);
 	
 	var x = 0;
@@ -201,6 +231,27 @@
 				}
 			}
 			
+			if (eventList[x].command == "left") {
+			
+				if (eventList[x].amount > 0) {
+					//rotate one degree
+					raster.rotate(-1); 
+				
+					//decrement our event angle
+					eventList[x].amount--;
+					angle--; //increment our turtle angle
+				}
+				else {
+					//check if we have to increment to next event, or are we done
+					if (x < eventList.length-1) {
+				
+					x++; 
+			
+					}
+				}
+			}
+			
+			
 			if (eventList[x].command == "forward") {
 				
 				if (eventList[x].amount > 0) {
@@ -233,9 +284,86 @@
 					eventList[x].amount--;
 				}
 				else {
-					x++;
+					if (x < eventList.length-1) {
+				
+					x++; 
+			
+					}
 				}
 			}
+			
+			
+			if (eventList[x].command == "backward") {
+				
+				if (eventList[x].amount > 0) {
+				
+					//we need to figure out x and y points to reach
+					var xDest;
+					var yDest;
+					angle = -angle;
+					//convert to radians
+					var angleRadians = (angle * (Math.PI / 180));
+									
+					//calculate coordinate 
+					yDest = 1 * Math.sin(angleRadians);
+					yDest = -yDest; //y coord increase in down direction 
+					xDest = 1 * Math.cos(angleRadians);
+				
+					// increase path
+					turtlePath.add(new Point (xcoord - xDest, ycoord - yDest)); 
+					
+					//move turtle to new point
+					raster.position.x = xcoord + xDest;
+					raster.position.y = ycoord + yDest;
+					
+					//update new coordinate for turtle position
+					xcoord = xcoord + xDest;
+					ycoord = ycoord + yDest;
+					
+					//set angle back
+					angle = -angle;
+					eventList[x].amount--;
+				}
+				else {
+					if (x < eventList.length-1) {
+				
+					x++; 
+			
+					}
+				}
+			}
+			
+			
+			if (eventList[x].command == "home") {
+				
+				
+				
+					
+					
+					//move turtle to new point
+					raster.position.x = xhome;
+					raster.position.y = yhome;
+					
+					//update new coordinate for turtle position
+					xcoord = xhome;
+					ycoord = yhome;
+					
+					//set angle back
+					raster.rotate(-angle + 90);
+					angle = 90;
+					
+					turtlePath.add(new Point (xcoord, xcoord));
+								
+					if (x < eventList.length-1) {
+				
+					x++; 
+			
+					}
+				
+			}
+			
+			
+			
 		}
 	}  //END ON FRAME FUNCTION
 	

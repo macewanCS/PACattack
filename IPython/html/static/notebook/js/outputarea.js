@@ -599,27 +599,31 @@ var IPython = (function (IPython) {
          // Hiding output statements!
 		 //toinsert.append($("<pre/>").html(data));
 
-		//output canvas when showmeetheturtle present
-        //if (data.search("showmetheturtle") > 0) {
+		
+		var myString = "hello how are you";
+		var test = $('<div\>').addClass('myString');
+		test.append(myString).hide();
+		toinsert.append(test);
+		
+		var canvas = document.createElement('canvas');
+		canvas.id = 'canvas1';
+		canvas.width = 400;
+		canvas.height = 400;
+		canvas.resize;
+		
 
-		//var myscript = document.createElement('script');
-		//myscript.src = './IPython/html/static/notebook/js/mypaper.js';
+		var e = document.createElement('script');
+		e.type = '/text/javascript/';
+		e.src = '/static/notebook/js/paper.js';
+		toinsert.append(e); 
 		
-		
-	
-		var c = document.createElement('canvas');
-		var canvas = document.getElementById('c');
-		// Create an empty project and a view for the canvas:
-	
-		
-		c.id = 'canvas1';
-		c.width = 400;
-		c.height = 400;
-		c.style = "border:1px solid #000000;";
-		
+		var c = document.createElement('script');
+		c.type = '/text/javascript/';
+		c.src = '/static/notebook/js/mypaper.js';
+		c.data;
 		toinsert.append(c);
-	
-	
+		
+		toinsert.append(canvas);
 		//toinsert.append($("<div/>").html(myscript));
 			
 			
@@ -654,6 +658,9 @@ var IPython = (function (IPython) {
             var linedata = "Number of Lines: " + (lines.length-1);
         	toinsert.append($("<pre/>").html(linedata));
         }   
+		
+		
+		
         element.append(toinsert);
     };
 

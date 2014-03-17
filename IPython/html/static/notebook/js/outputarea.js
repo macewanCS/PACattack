@@ -607,6 +607,7 @@ var IPython = (function (IPython) {
 		
 		var canvas = document.createElement('canvas');
 		canvas.id = 'canvas1';
+		canvas.keepalive="true";
 		canvas.width = 400;
 		canvas.height = 400;
 		canvas.resize;

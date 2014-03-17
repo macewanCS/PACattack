@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+	<canvas id="myCanvas" resize></canvas>
+	
+</body>
+
+
+<head>
+<!-- Load the Paper.js library -->
+<script type="text/javascript" src="http://www.andrewkind.com/paper.js"></script>
+<!-- Define inlined PaperScript associate it with myCanvas -->
+
+
+<script type="text/paperscript" canvas="myCanvas">
+		
+
+
+var turtleAngle = 55;
+
+
+		// Create a raster item using the image tag with id='mona'
+	var raster = new Raster('turtle.png');
+
+	var rasterEnd = new Raster('turtle.png');
+
+	// Move the raster to the center of the view
+	
+	// home coordinates
+	var xhome = 100;
+	var yhome = 100;
+	
+	var point1 = new Point(xhome, yhome);
+
+	
+	
+	// turtle coordinates
+	var xcoord = xhome;
+	var ycoord = yhome;
+	
+	var xstart = 100;
+	var ystart = 100;
+
+	var xend =200;
+	var yend = 70;
+	
+	var point2 = new Point(xend, yend);
+	var vector = point2 - point1;
+	
+	var distance = 5;
+
+	// image position
+	raster.position.x = xcoord;
+	raster.position.y = ycoord;
+	rasterEnd.position.x = xend;
+	rasterEnd.position.y = yend;
+	
+	rasterEnd.scale(0.2);
+	// Scale the image by 50%
+	raster.scale(0.5);
+
+		
+	
+	// create path object for turtle
+	var turtlePath = new Path();
+	turtlePath.strokeColor = 'blue';
+	turtlePath.add(new Point (xcoord, ycoord));
+	
+	var turtlePath2 = new Path();
+	turtlePath2.strokeColor = 'red';
+	//turtlePath2.add(new Point (xcoord, ycoord));
+	//turtlePath2.add(new Point (xend, yend));
+	
+	
+	
+	//turtlePath.add(new Point (xend, yend));
+	
+	//Lets create a list of events...
+	
+	var angle = 90; //this is to keep track of the turtles angle.
+	
+	
+	//sample commands: Pentagon
+	var event1 = [];
+	event1.command = "line";
+	event1.xstart = xcoord;
+	event1.ystart = ycoord;
+	event1.xend = xend;
+	event1.yend = yend;
+	
+	var event2 = [];
+	event2.command = "rotate";
+	event2.amount = 30;
+	
+	
+	//list of events
+	var eventList = [];
+	
+	//add samples into event list
+	eventList.push (event1);
+	//eventList.push (event2);
+	//eventList.push (event3);
+	//eventList.push (event4);
+	var x = 0;
+	
+	var temp = 100;
+	
+	 //should have an if statement to check which is bigger? or absolute value
+	 var distancex;
+	 var distancey;
+	 
+	 if (xend >xhome ) distancex = xend - xhome;
+	 else distancex = xhome - xend;
+	
+	 if (yend >yhome ) distancey = yend - yhome;
+	 else distancey = yhome - yend;
+	
+	
+	var slope = distancex/distancey;
+	
+	function onFrame(event) {
+					var newdistancex = xend - xcoord; 
+					var newdistancey = ycoord - yend;
+
+					var gox = xcoord + distancex * .05;
+					var goy = ycoord - distancey * .05;
+					
+					console.log("goy is "+ goy);
+					console.log("gox is "+ gox);
+					
+					turtlePath.add(new Point (gox,goy));
+					
+					xcoord = gox;
+					ycoord = goy;
+
+		
+	}  //END ON FRAME FUNCTION
+	
+	// test function for onkeydown
+	  
+	/*function onKeyDown(event) {
+	raster.translate(-1,0); 
+	raster.rotate(1);
+	} */
+	
+</script>
+
+</head>
+
+
+</html>

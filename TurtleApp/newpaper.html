@@ -135,17 +135,21 @@ var turtleAngle = 55;
 			var newdistancex = xend - xcoord; 
 			var newdistancey = ycoord - yend;
 
+			var speed = 0.01;
 			
-			var gox = xcoord + distancex * .05;
-			var goy = ycoord - distancey * .05;
+			var gox = xcoord + distancex * speed;
+			var goy = ycoord - distancey * speed;
 			
 			console.log("goy is "+ goy);
 			console.log("gox is "+ gox);
 			
 			turtlePath.add(new Point (gox,goy));
 			
+			raster.position.x = gox;
+			raster.position.y = goy;
 			xcoord = gox;
 			ycoord = goy;
+			
 		}
 		
 	}  //END ON FRAME FUNCTION

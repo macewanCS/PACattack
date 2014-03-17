@@ -29,13 +29,11 @@ var turtleAngle = 55;
 	// Move the raster to the center of the view
 	
 	// home coordinates
-	var xhome = 100;
-	var yhome = 100;
+	var xhome = 80;
+	var yhome = 120;
 	
 	var point1 = new Point(xhome, yhome);
 
-	
-	
 	// turtle coordinates
 	var xcoord = xhome;
 	var ycoord = yhome;
@@ -43,8 +41,8 @@ var turtleAngle = 55;
 	var xstart = 100;
 	var ystart = 100;
 
-	var xend =200;
-	var yend = 70;
+	var xend =30;
+	var yend = 300;
 	
 	var point2 = new Point(xend, yend);
 	var vector = point2 - point1;
@@ -120,21 +118,39 @@ var turtleAngle = 55;
 	
 	var slope = distancex/distancey;
 	
+	
+					//check which direction to go in
+					if (xend < xcoord) {
+						distancex = -distancex;
+					}
+					if (yend > ycoord) {
+						distancey = -distancey;
+					}
+						
+	
 	function onFrame(event) {
-					var newdistancex = xend - xcoord; 
-					var newdistancey = ycoord - yend;
+		
+		//keep drawing line until we reach end point
+		if (xcoord != xend) {
+			var newdistancex = xend - xcoord; 
+			var newdistancey = ycoord - yend;
 
-					var gox = xcoord + distancex * .05;
-					var goy = ycoord - distancey * .05;
-					
-					console.log("goy is "+ goy);
-					console.log("gox is "+ gox);
-					
-					turtlePath.add(new Point (gox,goy));
-					
-					xcoord = gox;
-					ycoord = goy;
-
+			var speed = 0.01;
+			
+			var gox = xcoord + distancex * speed;
+			var goy = ycoord - distancey * speed;
+			
+			console.log("goy is "+ goy);
+			console.log("gox is "+ gox);
+			
+			turtlePath.add(new Point (gox,goy));
+			
+			raster.position.x = gox;
+			raster.position.y = goy;
+			xcoord = gox;
+			ycoord = goy;
+			
+		}
 		
 	}  //END ON FRAME FUNCTION
 	

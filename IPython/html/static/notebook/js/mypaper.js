@@ -1,15 +1,14 @@
-         	
+
 
 			var d = document.getElementById('canvas1');
-
-			
 			paper.setup(d);
-
+			
+	
 			
 			d.style = "border:1px solid #000000;";
 			
 			
-	// Create a raster item using the image tag with id='mona'
+	// Create a raster item using the image tag with id='raster'
 	var raster = new paper.Raster('/static/notebook/js/turtle.png');
 
 	// Move the raster to the center of the view
@@ -182,14 +181,11 @@
 	eventList.push (event26);
 	
 	
-	paper.onFrame = function(event) { 
-		console.log("testing...");
-	}
-	
 	var x = 0; //this is our event index, starting at 0
 	
+console.log("before.");
 	function onFrame(event) {	
-	console.log("test");		
+	console.log("after");		
 		//check if we have an event in list..
 		if (x < eventList.length) {
 
@@ -364,7 +360,7 @@
 		
 			
 			var test1 = ($(".myString")).text();
-	//		alert(test1);
+			alert(test1);
 			
 			
 			

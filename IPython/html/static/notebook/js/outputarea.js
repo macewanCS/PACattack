@@ -607,22 +607,23 @@ var IPython = (function (IPython) {
 		
 		var canvas = document.createElement('canvas');
 		canvas.id = 'canvas1';
-		canvas.keepalive="true";
 		canvas.width = 400;
 		canvas.height = 400;
 		canvas.resize;
 		
 
 		var e = document.createElement('script');
-		e.type = '/text/javascript/';
+		e.type = '/text/javascript';
 		e.src = '/static/notebook/js/paper.js';
 		toinsert.append(e); 
 		
 		var c = document.createElement('script');
-		c.type = '/text/javascript/';
+		c.type = '/text/javascript';
 		c.src = '/static/notebook/js/mypaper.js';
+		c.canvas = 'canvas1';
 		c.data;
 		toinsert.append(c);
+		
 		
 		toinsert.append(canvas);
 		//toinsert.append($("<div/>").html(myscript));

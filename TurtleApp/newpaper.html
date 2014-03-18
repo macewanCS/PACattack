@@ -119,7 +119,18 @@
 	 var distancex;
 	 var distancey;
 	 
-	 //Claudine did you do this properly? I added some more logic (look a bit below)
+	 /*Claudine did you do this properly? I added some more logic (look a bit below)
+	  this currently sets up the first line movement.. but not others because we use the same variable
+	
+	       .-.
+          |_o_|    help me obiwan claudiny youre my only hope
+         /|='.|\
+         ||"_'||
+         /|-v-|\
+         "" ^ ""
+	 
+	 */
+	 
 	 if (xend >xhome ) distancex = xend - xhome;
 	 else distancex = xhome - xend;
 	
@@ -142,7 +153,8 @@
 	//loop to calculate any LINES distance x and y
 	
 	
-	var x = 0;
+	var x = 0; //event index
+	
 	function onFrame(event) {
 	
 			//check if we have an event to be done
@@ -169,8 +181,6 @@
 					x++;
 				}
 			}
-			
-			
 			
 			if (eventList[x].command == "rotate") {
 				console.log("rotate");

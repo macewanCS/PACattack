@@ -26,7 +26,11 @@
 
 	//prop turtle for display
 	var rasterEnd = new Raster('turtle.png');
-
+	var rasterEnd2 = new Raster('turtle.png');
+	var rasterEnd3 = new Raster('turtle.png');
+	var rasterEnd4 = new Raster('turtle.png');
+	var rasterEnd5 = new Raster('turtle.png');
+	
 	// Move the raster to the center of the view
 	
 	// home coordinates
@@ -45,10 +49,16 @@
 	// image position
 	raster.position.x = xcoord;
 	raster.position.y = ycoord;
-	rasterEnd.position.x = xend;
-	rasterEnd.position.y = yend;
+
+
 	
 	rasterEnd.scale(0.2);
+	rasterEnd2.scale(0.2);
+	rasterEnd3.scale(0.2);
+	rasterEnd4.scale(0.2);
+	rasterEnd5.scale(0.2);
+
+
 	// Scale the image by 50%
 	raster.scale(0.5);
 	
@@ -78,33 +88,61 @@
 	var event0 = [];
 	event0.command = "rotate";
 	event0.rotate = 90;
-	event0.xstart = xcoord;
-	event0.ystart = ycoord;
-	event0.xend = xend;
-	event0.yend = yend;
 	
 	var event1 = [];
 	event1.command = "rotate";
 	event1.rotate = -90;
-	event1.xstart = xcoord;
-	event1.ystart = ycoord;
-	event1.xend = xend;
-	event1.yend = yend;
 	
 	var event2 = [];
 	event2.command = "line";
 	event2.xstart = xcoord;
 	event2.ystart = ycoord;
 	event2.xend = 30;
-	event2.yend = 300;
+	event2.yend = 30;
 	
 	var event3 = [];
 	event3.command = "line";
-	event3.xstart = xcoord;
-	event3.ystart = ycoord;
-	event3.xend = 200;
-	event3.yend = 50;
+	event3.xstart = event2.xend;
+	event3.ystart = event2.yend;
+	event3.xend = 90;
+	event3.yend = 100;
 	
+	var event4 = [];
+	event4.command = "line";
+	event4.xstart = event3.xend;
+	event4.ystart = event3.yend;
+	event4.xend = 50;
+	event4.yend = 45;
+	
+	var event5 = [];
+	event5.command = "rotate";
+	event5.rotate = -90;
+	
+	var event6 = [];
+	event6.command = "line";
+	event6.xstart = event4.xend;
+	event6.ystart = event4.yend;
+	event6.xend = 550;
+	event6.yend = 45;
+	
+	var event7 = [];
+	event7.command = "line";
+	event7.xstart = event6.xend;
+	event7.ystart = event6.yend;
+	event7.xend = 550;
+	event7.yend = 145;
+	
+	//turtles for testing purpose
+	rasterEnd.position.x = 30;
+	rasterEnd.position.y = 30;
+	rasterEnd2.position.x = 90;
+	rasterEnd2.position.y = 100;
+	rasterEnd3.position.x = 50;
+	rasterEnd3.position.y = 45;
+	rasterEnd4.position.x = 550;
+	rasterEnd4.position.y = 45;
+	rasterEnd5.position.x = 550;
+	rasterEnd5.position.y = 145;
 	
 	//list of events
 	var eventList = [];
@@ -114,6 +152,10 @@
 	eventList.push (event1);
 	eventList.push (event2);
 	eventList.push (event3);
+	eventList.push (event4);
+	eventList.push (event5);
+	eventList.push (event6);
+	eventList.push (event7);
 		
 	 //distance to x and y
 	 var distancex;
@@ -131,6 +173,7 @@
 	 
 	 */
 	 
+	 /*
 	 if (xend >xhome ) distancex = xend - xhome;
 	 else distancex = xhome - xend;
 	
@@ -144,6 +187,8 @@
 	if (yend > ycoord) {
 		distancey = -distancey;
 	}
+	
+	*/
 		
 	//lets rotate the turtle
 	raster.rotate(turtleAngle);
@@ -161,13 +206,47 @@
 			if (x < eventList.length) {
 		
 			if (eventList[x].command == "line") {
+	
+				if (!eventList[x].hasOwnProperty("distancex")) {
+					console.log("setting distancex");
+					
+					
+					if (eventList[x].xend > xcoord ) eventList[x].distancex = eventList[x].xend - xcoord;
+					 else eventList[x].distancex = xcoord - eventList[x].xend;
+					//maybe try putting prevous x-1 event's xend yend
+					 if (eventList[x].yend >ycoord ) eventList[x].distancey = eventList[x].yend - ycoord;
+					 else eventList[x].distancey = ycoord - eventList[x].yend;
+					
+					//check which direction to go in (see above comment)
+					if (eventList[x].xend < xcoord) {
+						eventList[x].distancex = -eventList[x].distancex;
+					}
+					if (eventList[x].yend > ycoord) {
+						eventList[x].distancey = -eventList[x].distancey;
+					}
+					
+					
+					
+					
+				}
 				
 				//keep drawing line until we reach end point
-				if (xcoord != eventList[x].xend) {
+				
+				//check if we are near our endpoint
+				var difx;
+				difx = xcoord - eventList[x].xend;
+				difx = Math.abs(difx);
+				var dify;
+				dify = ycoord - eventList[x].yend;
+				dify = Math.abs(dify);
+				
+				//OLD if (xcoord != eventList[x].xend) {
+				if ((difx > 1) && (dify > 1)) {
+				
 					
 					
-					var gox = xcoord + distancex * speed;
-					var goy = ycoord - distancey * speed;
+					var gox = xcoord + eventList[x].distancex * speed;
+					var goy = ycoord - eventList[x].distancey * speed;
 					
 					turtlePath.add(new Point (gox,goy));
 					
@@ -181,22 +260,23 @@
 					x++;
 				}
 			}
-			
-			if (eventList[x].command == "rotate") {
-				console.log("rotate");
-				if (eventList[x].rotate > 0) {
-				raster.rotate(1); //rotate clockwise
-				eventList[x].rotate--; //decrease angle until we hit 0
-				}
-				
-				
-				else if (eventList[x].rotate < 0) {
-				raster.rotate(-1); //rotate counterclockwise
-				eventList[x].rotate++; //increase angle until we hit 0
-				}
-				else {
-				// we are done rotating 
-				x++;
+			if (x < eventList.length) {
+				if (eventList[x].command == "rotate") {
+					console.log("rotate");
+					if (eventList[x].rotate > 0) {
+					raster.rotate(1); //rotate clockwise
+					eventList[x].rotate--; //decrease angle until we hit 0
+					}
+					
+					
+					else if (eventList[x].rotate < 0) {
+					raster.rotate(-1); //rotate counterclockwise
+					eventList[x].rotate++; //increase angle until we hit 0
+					}
+					else {
+					// we are done rotating 
+					x++;
+					}
 				}
 			}
 		}  

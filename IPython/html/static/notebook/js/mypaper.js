@@ -2,372 +2,207 @@
 
 			var d = document.getElementById('canvas1');
 			paper.setup(d);
-			
-	
-			
+						
 			d.style = "border:1px solid #000000;";
 			
-			
+	
 	// Create a raster item using the image tag with id='raster'
 	var raster = new paper.Raster('/static/notebook/js/turtle.png');
 
-	// Move the raster to the center of the view
-	
+	//turtle starts at 90 degrees (looking up) to x-axis
+	var turtleAngle = 0;
+
 	// home coordinates
-	var xhome = 150;
-	var yhome = 150;
+	var xhome = 80;
+	var yhome = 120;
 	
-	// turtle coordinates
+	// turtle coordinates (start at home)
 	var xcoord = xhome;
 	var ycoord = yhome;
+
 	
 	// image position
-	raster.position = (xcoord, xcoord);
-
+	raster.position.x = xcoord;
+	raster.position.y = ycoord;
+	
 	// Scale the image by 50%
 	raster.scale(0.5);
 
+	
+	
+	//speed of movement
+	var speed = 0.01;
+
 	// create path object for turtle
 	var turtlePath = new paper.Path();
-	turtlePath.strokeColor = 'black';
+	turtlePath.strokeColor = 'blue';
 	turtlePath.add(new paper.Point (xcoord, ycoord));
 	
-	for (var temp = 0; temp < 100; temp++) {
-		turtlePath.add(new paper.Point (xcoord+1, ycoord+1));
-		xcoord++;
-		ycoord++;
-		console.log("test2");
-		}
-	
-	//Lets create a list of events...
 	
 	var angle = 90; //this is to keep track of the turtles angle.
 	
+	/*
+	//sample commands for testing
+	var event0 = [];
+	event0.command = "rotate";
+	event0.rotate = 90;
 	
-	//sample commands: Pentagon
 	var event1 = [];
-	event1.command = "right";
-	event1.amount = 45;
+	event1.command = "rotate";
+	event1.rotate = -90;
 	
 	var event2 = [];
-	event2.command = "forward";
-	event2.amount = 30;
+	event2.command = "line";
+	event2.xstart = xcoord;
+	event2.ystart = ycoord;
+	event2.xend = 30;
+	event2.yend = 30;
 	
 	var event3 = [];
-	event3.command = "right";
-	event3.amount = 45;
+	event3.command = "line";
+	event3.xstart = event2.xend;
+	event3.ystart = event2.yend;
+	event3.xend = 90;
+	event3.yend = 100;
 	
 	var event4 = [];
-	event4.command = "forward";
-	event4.amount = 30;
+	event4.command = "line";
+	event4.xstart = event3.xend;
+	event4.ystart = event3.yend;
+	event4.xend = 50;
+	event4.yend = 45;
 	
 	var event5 = [];
-	event5.command = "right";
-	event5.amount = 45;
-	
+	event5.command = "rotate";
+	event5.rotate = -90;
 	
 	var event6 = [];
-	event6.command = "forward";
-	event6.amount = 30;
+	event6.command = "line";
+	event6.xstart = event4.xend;
+	event6.ystart = event4.yend;
+	event6.xend = 550;
+	event6.yend = 45;
 	
 	var event7 = [];
-	event7.command = "right";
-	event7.amount = 45;
+	event7.command = "line";
+	event7.xstart = event6.xend;
+	event7.ystart = event6.yend;
+	event7.xend = 550;
+	event7.yend = 545;
+	*/
+
+	//Get the events from output area.
 	
-	var event8 = [];
-	event8.command = "forward";
-	event8.amount = 30;
+			
+			var myEvents = ($(".myString")).text();
+			
+			myEvents = myEvents.split(" ");
+				
+			
+			var event0 = [];
+			event0.command = myEvents[0];
+			event0.rotate = myEvents[1];
+			
+			var event1 = [];
+			event1.command = myEvents[2];
+			event1.rotate = myEvents[3];
+		
+		
 	
-	var event9 = [];
-	event9.command = "right";
-	event9.amount = 45;
-	
-	var event10 = [];
-	event10.command = "forward";
-	event10.amount = 30;
-	
-	var event11 = [];
-	event11.command = "right";
-	event11.amount = 45;
-	
-	var event12 = [];
-	event12.command = "forward";
-	event12.amount = 30;
-	
-	var event13 = [];
-	event13.command = "right";
-	event13.amount = 45;
-	
-	var event14 = [];
-	event14.command = "forward";
-	event14.amount = 30;
-	
-	var event15 = [];
-	event15.command = "right";
-	event15.amount = 45;
-	
-	var event16 = [];
-	event16.command = "forward";
-	event16.amount = 30;
-	
-	var event17 = [];
-	event17.command = "right";
-	event17.amount = 19;
-	
-	var event18 = [];
-	event18.command = "forward";
-	event18.amount = 41;
-	
-	var event19 = [];
-	event19.command = "right";
-	event19.amount = 110;
-	
-	var event20 = [];
-	event20.command = "forward";
-	event20.amount = 35;
-	
-	var event21 = [];
-	event21.command = "home";	
-	
-	var event22 = [];
-	event22.command = "right";
-	event22.amount = 14;
-	
-	var event23 = [];
-	event23.command = "forward";
-	event23.amount = 72;
-	
-	var event24 = [];
-	event24.command = "left";
-	event24.amount = 54;
-	
-	var event25 = [];
-	event25.command = "backward";
-	event25.amount = 72;
-	
-	var event26 = [];
-	event26.command = "left";
-	event26.amount = 32;
 	
 	//list of events
 	var eventList = [];
-
+	
 	//add samples into event list
+	eventList.push (event0);
 	eventList.push (event1);
-	eventList.push (event2);
-	eventList.push (event3);
-	eventList.push (event4);
-	eventList.push (event5);
-	eventList.push (event6);
-	eventList.push (event7);
-	eventList.push (event8);
-	eventList.push (event9);
-	eventList.push (event10)
-	eventList.push (event11)
-	eventList.push (event12)
-	eventList.push (event13)
-	eventList.push (event14);
-	eventList.push (event15);
-	eventList.push (event16);
-	eventList.push (event17);
-	eventList.push (event18);
-	eventList.push (event19);
-	eventList.push (event20);
-	eventList.push (event21);
-	eventList.push (event22);
-	eventList.push (event23);
-	eventList.push (event24);
-	eventList.push (event25);
-	eventList.push (event26);
-	
-	
-	var x = 0; //this is our event index, starting at 0
-	
-    console.log("before.");
-    
-    //while (1){
-    //	console.log("loooping");
-    //	onFrame(eventList);
-    //}
-    
-    paper.view.onFrame = function (event) {
-	//function onFrame(event) {	
-	console.log("after");		
-		//check if we have an event in list..
-		if (x < eventList.length) {
-
-
-			//we must check which command is issued, starting at x = 0			
-			if (eventList[x].command == "right") {
-			
-				if (eventList[x].amount > 0) {
-					//rotate one degree
-					raster.rotate(1); 
-				
-					//decrement our event angle
-					eventList[x].amount--;
-					angle++; //increment our turtle angle
-				}
-				else {
-					//check if we have to increment to next event, or are we done
-					if (x < eventList.length-1) {
-				
-					x++; 
-			
-					}
-				}
-			}
-			
-			if (eventList[x].command == "left") {
-			
-				if (eventList[x].amount > 0) {
-					//rotate one degree
-					raster.rotate(-1); 
-				
-					//decrement our event angle
-					eventList[x].amount--;
-					angle--; //increment our turtle angle
-				}
-				else {
-					//check if we have to increment to next event, or are we done
-					if (x < eventList.length-1) {
-				
-					x++; 
-			
-					}
-				}
-			}
-			
-			
-			if (eventList[x].command == "forward") {
-				
-				if (eventList[x].amount > 0) {
-				
-					//we need to figure out x and y points to reach
-					var xDest;
-					var yDest;
-					angle = -angle;
-					//convert to radians
-					var angleRadians = (angle * (Math.PI / 180));
-									
-					//calculate coordinate 
-					yDest = 1 * Math.sin(angleRadians);
-					yDest = -yDest; //y coord increase in down direction 
-					xDest = 1 * Math.cos(angleRadians);
-				
-					// increase path
-					turtlePath.add(new paper.Point (xcoord - xDest, ycoord - yDest)); 
-					
-					//move turtle to new point
-					raster.position.x = xcoord - xDest;
-					raster.position.y = ycoord - yDest;
-					
-					//update new coordinate for turtle position
-					xcoord = xcoord - xDest;
-					ycoord = ycoord - yDest;
-					
-					//set angle back
-					angle = -angle;
-					eventList[x].amount--;
-				}
-				else {
-					if (x < eventList.length-1) {
-				
-					x++; 
-			
-					}
-				}
-			}
-			
-			
-			if (eventList[x].command == "backward") {
-				
-				if (eventList[x].amount > 0) {
-				
-					//we need to figure out x and y points to reach
-					var xDest;
-					var yDest;
-					angle = -angle;
-					//convert to radians
-					var angleRadians = (angle * (Math.PI / 180));
-									
-					//calculate coordinate 
-					yDest = 1 * Math.sin(angleRadians);
-					yDest = -yDest; //y coord increase in down direction 
-					xDest = 1 * Math.cos(angleRadians);
-				
-					// increase path
-					turtlePath.add(new paper.Point (xcoord - xDest, ycoord - yDest)); 
-					
-					//move turtle to new point
-					raster.position.x = xcoord + xDest;
-					raster.position.y = ycoord + yDest;
-					
-					//update new coordinate for turtle position
-					xcoord = xcoord + xDest;
-					ycoord = ycoord + yDest;
-					
-					//set angle back
-					angle = -angle;
-					eventList[x].amount--;
-				}
-				else {
-					if (x < eventList.length-1) {
-				
-					x++; 
-			
-					}
-				}
-			}
-			
-			
-			if (eventList[x].command == "home") {
-				
-				
-				
-					
-					
-					//move turtle to new point
-					raster.position.x = xhome;
-					raster.position.y = yhome;
-					
-					//update new coordinate for turtle position
-					xcoord = xhome;
-					ycoord = yhome;
-					
-					//set angle back
-					raster.rotate(-angle + 90);
-					angle = 90;
-					
-					turtlePath.add(new paper.Point (xcoord, xcoord));
-								
-					if (x < eventList.length-1) {
-				
-					x++; 
-			
-					}
-				
-			}
-			
-			
-			
-		}
-	}  //END ON FRAME FUNCTION
-	
-	// test function for onkeydown
-	  
-	function onKeyDown(event) {
-	raster.translate(-1,0); 
-	raster.rotate(1);
-		console.log("test");
-	
-	} 
-	
-		//	var raster = new paper.Raster('/static/notebook/js/turtle.png');		
 		
-			
-			var test1 = ($(".myString")).text();
-			alert(test1);
-			
-			
-			
+	 //distance to x and y
+	 var distancex;
+	 var distancey;
+	 
+	 var x = 0; //event index
+	 
+	 paper.view.onFrame = function(event) {
+			//check if we have an event to be done
+			if (x < eventList.length) {
+		
+			if (eventList[x].command == "line") {
+	
+				if (!eventList[x].hasOwnProperty("distancex")) {
+					
+					if (eventList[x].xend > xcoord ) eventList[x].distancex = eventList[x].xend - xcoord;
+					 else eventList[x].distancex = xcoord - eventList[x].xend;
+					
+					
+					//maybe try putting prevous x-1 event's xend yend
+					 if (eventList[x].yend >ycoord ) eventList[x].distancey = eventList[x].yend - ycoord;
+					 else eventList[x].distancey = ycoord - eventList[x].yend;
+					
+					//check which direction to go in (see above comment)
+					if (eventList[x].xend < xcoord) {
+						eventList[x].distancex = -eventList[x].distancex;
+					}
+					if (eventList[x].yend > ycoord) {
+						eventList[x].distancey = -eventList[x].distancey;
+					}
+					
+					
+					
+					
+				}
+				
+				//keep drawing line until we reach end point
+				
+				//check if we are near our endpoint
+				var difx;
+				difx = xcoord - eventList[x].xend;
+				difx = Math.abs(difx);
+				var dify;
+				dify = ycoord - eventList[x].yend;
+				dify = Math.abs(dify);
+				
+				//all i did was check if we should be done.
+				
+				if ((Math.floor(difx) == 0) && (Math.floor(dify) == 0 )){
+				x++;
+				
+				} else {
+					var gox = xcoord + eventList[x].distancex * speed;
+					var goy = ycoord - eventList[x].distancey * speed;
+					
+					turtlePath.add(new paper.Point (gox,goy));
+					
+					raster.position.x = gox;
+					raster.position.y = goy;
+					xcoord = gox;
+					ycoord = goy;
+					
+				
+				}
+					
+				
+			}
+			if (x < eventList.length) {
+				if (eventList[x].command == "rotate") {
+	
+					if (eventList[x].rotate > 0) {
+					raster.rotate(1); //rotate clockwise
+					eventList[x].rotate--; //decrease angle until we hit 0
+					}
+					
+					
+					else if (eventList[x].rotate < 0) {
+					raster.rotate(-1); //rotate counterclockwise
+					eventList[x].rotate++; //increase angle until we hit 0
+					}
+					else {
+					// we are done rotating 
+					x++;
+					}
+				}
+			}
+		}  
+	} //END ON FRAME FUNCTION
+
+	

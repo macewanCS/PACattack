@@ -183,8 +183,15 @@
 	
 	var x = 0; //this is our event index, starting at 0
 	
-console.log("before.");
-	function onFrame(event) {	
+    console.log("before.");
+    
+    //while (1){
+    //	console.log("loooping");
+    //	onFrame(eventList);
+    //}
+    
+    paper.view.onFrame = function (event) {
+	//function onFrame(event) {	
 	console.log("after");		
 		//check if we have an event in list..
 		if (x < eventList.length) {

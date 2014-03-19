@@ -10,7 +10,7 @@
 	var raster = new paper.Raster('/static/notebook/js/turtle.png');
 
 	//turtle starts at 90 degrees (looking up) to x-axis
-	var turtleAngle = 0;
+	var turtleAngle = 90;
 
 	// home coordinates
 	var xhome = 250;
@@ -31,7 +31,7 @@
 	
 	
 	//speed of movement
-	var speed = 0.01;
+	var speed = 10;
 
 	// create path object for turtle
 	var turtlePath = new paper.Path();
@@ -166,7 +166,6 @@
 			if (x < eventList.length) {
 		
 			if (eventList[x].command == "line") {
-				console.log("got to line");
 				if (!eventList[x].hasOwnProperty("distancex")) {
 					
 					if (eventList[x].xend > xcoord ) eventList[x].distancex = eventList[x].xend - xcoord;
@@ -187,6 +186,13 @@
 	
 				}
 				
+				if (!eventList[x].hasOwnProperty("distanceh")) {
+				
+				eventList[x].distanceh = Math.sqrt((eventList[x].distancex * eventList[x].distancex) + (eventList[x].distancey * eventList[x].distancey))
+				eventList[x].distanceh = Math.round(eventList[x].distanceh)
+				
+				}
+				
 				//keep drawing line until we reach end point
 				
 				//check if we are near our endpoint
@@ -202,15 +208,33 @@
 				x++;
 				
 				} else {
-					var gox = xcoord + eventList[x].distancex * speed;
-					var goy = ycoord - eventList[x].distancey * speed;
+
+					turtleAngle = -turtleAngle;
+					//convert to radians
+					var angleRadians = (turtleAngle * (Math.PI / 180));
+									
+					//calculate coordinate 
+					yDest = Math.sin(angleRadians);
+					yDest = -yDest; //y coord increase in down direction 
+					xDest = Math.cos(angleRadians);
 					
-					turtlePath.add(new paper.Point (gox,goy));
+					//adjust speed
+					xDest = xDest * speed;
+					yDest = yDest * speed;
+				
+					// increase path
+					turtlePath.add(new paper.Point (xcoord - xDest, ycoord - yDest)); 
 					
-					raster.position.x = gox;
-					raster.position.y = goy;
-					xcoord = gox;
-					ycoord = goy;
+					//move turtle to new point
+					raster.position.x = xcoord - xDest;
+					raster.position.y = ycoord - yDest;
+					
+					//update new coordinate for turtle position
+					xcoord = xcoord - xDest;
+					ycoord = ycoord - yDest;
+					
+					//set angle back
+					turtleAngle = -turtleAngle;
 					
 				
 				}
@@ -224,12 +248,14 @@
 					if (eventList[x].rotate > 0) {
 					raster.rotate(1); //rotate clockwise
 					eventList[x].rotate--; //decrease angle until we hit 0
+					turtleAngle++;
 					}
 					
 					
 					else if (eventList[x].rotate < 0) {
 					raster.rotate(-1); //rotate counterclockwise
 					eventList[x].rotate++; //increase angle until we hit 0
+					turtleAngle--;
 					}
 					else {
 					// we are done rotating 

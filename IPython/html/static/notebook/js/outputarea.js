@@ -605,7 +605,7 @@ var IPython = (function (IPython) {
 			turtlecmds = data.replace(/\r?\n/g, " ")
 			turtlecmds = turtlecmds.replace("PAC: ", "");
 		
-			toinsert.append($("<pre/>").html(turtlecmds));
+			//toinsert.append($("<pre/>").html(turtlecmds));
 		}
 		
 		//string to pass to mypaper.js

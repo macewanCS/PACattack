@@ -143,7 +143,7 @@
     	if ( myEvents[index].indexOf('forward') >= 0) {
     	var event = [];
     	console.log("got to forward");
-    		event.command = myEvents[index];
+    		event.command = "line";
     		++index;
     		event.xend = myEvents[index];
     		++index;
@@ -166,7 +166,7 @@
 			if (x < eventList.length) {
 		
 			if (eventList[x].command == "line") {
-			console.log("got to line");
+				console.log("got to line");
 				if (!eventList[x].hasOwnProperty("distancex")) {
 					
 					if (eventList[x].xend > xcoord ) eventList[x].distancex = eventList[x].xend - xcoord;

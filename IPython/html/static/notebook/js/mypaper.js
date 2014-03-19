@@ -13,8 +13,8 @@
 	var turtleAngle = 0;
 
 	// home coordinates
-	var xhome = 80;
-	var yhome = 120;
+	var xhome = 250;
+	var yhome = 250;
 	
 	// turtle coordinates (start at home)
 	var xcoord = xhome;
@@ -91,14 +91,8 @@
 	event7.yend = 545;
 	*/
 
-	//Get the events from output area.
-	
 			
-			var myEvents = ($(".myString")).text();
-			
-			myEvents = myEvents.split(" ");
-				
-			
+			/*
 			var event0 = [];
 			event0.command = myEvents[0];
 			event0.rotate = myEvents[1];
@@ -107,17 +101,52 @@
 			event1.command = myEvents[2];
 			event1.rotate = myEvents[3];
 		
-		
+		*/
 	
 	
-	//list of events
-	var eventList = [];
 	
+	/*
 	//add samples into event list
 	eventList.push (event0);
 	eventList.push (event1);
+		*/
+		
 		
 	 //distance to x and y
+
+
+
+
+	//Get the events from output area.
+	var myEvents = ($(".myString")).text();
+	myEvents = myEvents.split(" ");			
+			
+	//list of events
+	var eventList = [];
+	//create events, push them into list...
+	var index;
+	var event = [];
+
+	//loop through array and create events
+	for (index = 0; index < myEvents.length; ++index) {
+    	if ( (myEvents[index]) == "rotate"){
+    		//var event = [];
+    		event.command = event[index];
+    		index++;
+    		event.rotate = event[index];
+    		eventList.push (event);
+    		
+    	}else if ( (myEvents[index]) == "forward") {
+    		//var event = [];
+    		event.command = event[index];
+    		index++;
+    		event.xend = event[index];
+    		index++;
+    		event.yend = event[index];
+    		eventList.push(event);
+    	}
+	}
+			
 	 var distancex;
 	 var distancey;
 	 
@@ -128,7 +157,7 @@
 			if (x < eventList.length) {
 		
 			if (eventList[x].command == "line") {
-	
+		
 				if (!eventList[x].hasOwnProperty("distancex")) {
 					
 					if (eventList[x].xend > xcoord ) eventList[x].distancex = eventList[x].xend - xcoord;
@@ -146,10 +175,7 @@
 					if (eventList[x].yend > ycoord) {
 						eventList[x].distancey = -eventList[x].distancey;
 					}
-					
-					
-					
-					
+	
 				}
 				
 				//keep drawing line until we reach end point
@@ -162,8 +188,7 @@
 				dify = ycoord - eventList[x].yend;
 				dify = Math.abs(dify);
 				
-				//all i did was check if we should be done.
-				
+				//check if done
 				if ((Math.floor(difx) == 0) && (Math.floor(dify) == 0 )){
 				x++;
 				
@@ -183,6 +208,7 @@
 					
 				
 			}
+			
 			if (x < eventList.length) {
 				if (eventList[x].command == "rotate") {
 	

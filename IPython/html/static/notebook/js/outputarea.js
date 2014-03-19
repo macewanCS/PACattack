@@ -595,77 +595,60 @@ var IPython = (function (IPython) {
             toinsert.addClass(extra_class);
         }
         
-        data=data;
-         // Hiding output statements!
-		 toinsert.append($("<pre/>").html(data));
+        
+		
+       //toinsert.append($("<pre/>").html(data));
 
+		var turtlecmds = "";
+        //parse through data and create a turtlecmds string
+		if ((data.search("PAC")) > -1) {
+			turtlecmds = data.replace(/\r?\n/g, " ")
+			turtlecmds = turtlecmds.replace("PAC: ", "");
 		
-		//sample event
-		var event0 = []
-		event0.rotate = 100;
-		
-		var event1 = [];
-		event1.rotate -50;
-		
-		//string to pass to mypaper.js
-		var myString = "rotate 100 rotate -50";
-		
-		var test = $('<div\>').addClass('myString');
-		test.append(myString).hide();
-		toinsert.append(test);
-		
-		var canvas = document.createElement('canvas');
-		canvas.id = 'canvas1';
-		canvas.width = 800;
-		canvas.height = 600;
-		canvas.style = "border:1px solid #000000;";
-		canvas.resize;
-
-		var e = document.createElement('script');
-		e.type = '/text/javascript';
-		e.src = '/static/notebook/js/paper.js';
-		toinsert.append(e); 
-		
-		var c = document.createElement('script');
-		c.type = '/text/javascript';
-		c.src = '/static/notebook/js/mypaper.js';
-		c.canvas = 'canvas1';
-		c.data;
-		toinsert.append(c);
-		
-		
-		toinsert.append(canvas);
-		//toinsert.append($("<div/>").html(myscript));
-			
-			
-			
-			
-		//}
-		
-		//output canvas when showmeetheturtle present
-        if (data.search("PAC: rotate") != -1) {
-         	
-			
-			
+			toinsert.append($("<pre/>").html(turtlecmds));
 		}
 		
+		//string to pass to mypaper.js
+		//if we have turtlecmds
+		if (turtlecmds.length > 0){
+			var test = $('<div\>').addClass('myString');
+			test.append(turtlecmds).hide();
+			toinsert.append(test);
+
+			var canvas = document.createElement('canvas');
+			canvas.id = 'canvas1';
+			canvas.width = 800;
+			canvas.height = 600;
+			canvas.style = "border:1px solid #000000;";
+			canvas.resize;
+
+			var e = document.createElement('script');
+			e.type = '/text/javascript';
+			e.src = '/static/notebook/js/paper.js';
+			toinsert.append(e); 
 		
+			var c = document.createElement('script');
+			c.type = '/text/javascript';
+			c.src = '/static/notebook/js/mypaper.js';
+			c.canvas = 'canvas1';
+			c.data;
+			toinsert.append(c);
+	
+			toinsert.append(canvas);
+		}
+		//toinsert.append($("<div/>").html(myscript));
+
+		//}
 		
-		
-        
         
         
      	//line count feature, when countthelines present
+     	/*
         if (data.search("countthelines") > 0) {
     		var lines = data.split(/\r\n|\r|\n/);
             var linedata = "Number of Lines: " + (lines.length-1);
         	toinsert.append($("<pre/>").html(linedata));
-			
-			
-        }   
-		
-		
-		
+        }   */
         element.append(toinsert);
     };
 

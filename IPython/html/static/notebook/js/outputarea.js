@@ -597,20 +597,29 @@ var IPython = (function (IPython) {
         
         data=data;
          // Hiding output statements!
-		 //toinsert.append($("<pre/>").html(data));
+		 toinsert.append($("<pre/>").html(data));
 
 		
-		var myString = "hello how are you";
+		//sample event
+		var event0 = []
+		event0.rotate = 100;
+		
+		var event1 = [];
+		event1.rotate -50;
+		
+		//string to pass to mypaper.js
+		var myString = "rotate 100 rotate -50";
+		
 		var test = $('<div\>').addClass('myString');
 		test.append(myString).hide();
 		toinsert.append(test);
 		
 		var canvas = document.createElement('canvas');
 		canvas.id = 'canvas1';
-		canvas.width = 400;
-		canvas.height = 400;
+		canvas.width = 800;
+		canvas.height = 600;
+		canvas.style = "border:1px solid #000000;";
 		canvas.resize;
-		
 
 		var e = document.createElement('script');
 		e.type = '/text/javascript';
@@ -634,21 +643,13 @@ var IPython = (function (IPython) {
 		//}
 		
 		//output canvas when showmeetheturtle present
-       /* if (data.search("PAC: forward") != -1) {
+        if (data.search("PAC: rotate") != -1) {
          	
-			ycoord = ycoord - 30; //increase y 
-			ctx.drawImage(imageObj, 50, 10);
+			
 			
 		}
 		
 		
-		
-		if (data.search("PAC: back") != -1) {
-         	
-			
-			ctx.drawImage(imageObj, 50, 180);
-			
-		} */
 		
 		
         
@@ -659,6 +660,8 @@ var IPython = (function (IPython) {
     		var lines = data.split(/\r\n|\r|\n/);
             var linedata = "Number of Lines: " + (lines.length-1);
         	toinsert.append($("<pre/>").html(linedata));
+			
+			
         }   
 		
 		

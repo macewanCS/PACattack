@@ -217,6 +217,10 @@
 					yDest = Math.sin(angleRadians);
 					yDest = -yDest; //y coord increase in down direction 
 					xDest = Math.cos(angleRadians);
+					
+					//adjust speed
+					xDest = xDest * speed;
+					yDest = yDest * speed;
 				
 					// increase path
 					turtlePath.add(new paper.Point (xcoord - xDest, ycoord - yDest)); 

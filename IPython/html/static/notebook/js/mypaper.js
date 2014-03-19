@@ -91,16 +91,23 @@
 	 
 	 var x = 0; //event index
 	 
-	 console.log("Event name:" + eventList[0].command);
-	 console.log("Event xend:" + eventList[0].xend);
+	 //console.log("Event name:" + eventList[0].command);
+	 //console.log("Event xend:" + eventList[0].xend);
 	 
 	 
 	 paper.view.onFrame = function(event) {
+	 	var dummyspeed = speed;
 		//check if we have an event to be done
 		if (x < eventList.length) {
 		
 			//check if curent event is a line movement
 			if (eventList[x].command == "line") {
+			
+			console.log("IN LINE Event name:" + eventList[x].command);
+	 	console.log("Event xend:" + eventList[x].xend);
+	 	console.log("Event xcurr:" + xcoord);
+		console.log("Event yend:" + eventList[x].yend);
+	 	console.log("Event ycurr:" + ycoord);	
 			
 				//calculate distancex and distancey if not calculated yet
 				if (!eventList[x].hasOwnProperty("distancex")) {
@@ -159,32 +166,55 @@
 					yDest = -yDest; //y coord increase in down direction 
 					xDest = Math.cos(angleRadians);
 					
+				
+
+					
+					console.log("Speed is " + dummyspeed + " eventList.x.distance is " + eventList[x].distanceh);
+					
+					// OLD
 					//adjust speed
 					//make condition to check if we are approaching destination, if we are, dont overshoot
+					//speed = 37
+					console.log("Speed is " + speed + "eventList.x.distance is " + eventList[x].distanceh);
+					
+					console.log("ycoord is " + ycoord + " yend is " + eventList[x].yend + " next start is " + eventList[x+1].yend);
+					
 					if (speed <= eventList[x].distanceh) {
-					xDest = xDest * speed;
-					yDest = yDest * speed;
-					
-					}
-					else {
-					console.log("should see me once!!");
-					xDest = xDest * (eventList[x].distanceh - speed);
-					yDest = yDest * (eventList[x].distanceh - speed);
-					x++;
-					
-					
-					}
+						xDest = xDest * speed;
+						yDest = yDest * speed;
+						
+						//updsate distanceh (appropriately...)
+						eventList[x].distanceh = Math.sqrt(((eventList[x].xend-xcoord) * (eventList[x].xend-xcoord)) + ((eventList[x].yend-ycoord) * (eventList[x].yend-ycoord)))
 				
-					// increase path
-					turtlePath.add(new paper.Point (xcoord - xDest, ycoord - yDest)); 
+				
+						// increase path
+						turtlePath.add(new paper.Point (xcoord - xDest, ycoord - yDest)); 
 					
-					//move turtle to new point
-					raster.position.x = xcoord - xDest;
-					raster.position.y = ycoord - yDest;
+						//move turtle to new point
+						raster.position.x = xcoord - xDest;
+						raster.position.y = ycoord - yDest;
 					
-					//update new coordinate for turtle position
-					xcoord = xcoord - xDest;
-					ycoord = ycoord - yDest;
+						//update new coordinate for turtle position
+						xcoord = xcoord - xDest;
+						ycoord = ycoord - yDest;
+					}else {
+						console.log("should see me once!!");
+						//go to end location
+					
+						turtlePath.add(new paper.Point (xcoord, ycoord)); 
+					
+						//move turtle to new point
+						raster.position.x = xcoord;
+						raster.position.y = ycoord;
+						
+						
+						ycoord = eventList[x].yend;
+						xcoord = eventList[x].xend;
+						++x;
+					}
+
+				
+
 					
 					//set angle back
 					turtleAngle = -turtleAngle;

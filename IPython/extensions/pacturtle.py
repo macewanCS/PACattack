@@ -10,7 +10,7 @@ class pacturtle:
 	turtleAngle = 90 #turtle is point up, 90 degrees to the x-axis
 	
 	#magic word
-	print 'PAC: '
+	print "PAC:"
 	
 	def rotate(self, angle):
 		print "rotate",angle
@@ -32,7 +32,7 @@ class pacturtle:
 		endx = self.startx - endx 
 		endy = self.starty + endy
 		
-		print " forward",endx ,endy 
+		print "forward",endx ,endy 
 		
 		#set up new startpoints
 		self.startx = endx

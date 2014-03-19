@@ -608,9 +608,6 @@ var IPython = (function (IPython) {
 			toinsert.append($("<pre/>").html(turtlecmds));
 		}
 		
-		
-		
-		
 		//string to pass to mypaper.js
 		//if we have turtlecmds
 		if (turtlecmds.length > 0){

@@ -31,7 +31,7 @@
 	
 	
 	//speed of movement
-	var speed = 10;
+	var speed = 2;
 
 	// create path object for turtle
 	var turtlePath = new paper.Path();
@@ -40,82 +40,6 @@
 	
 	
 	var angle = 90; //this is to keep track of the turtles angle.
-	
-	/*
-	//sample commands for testing
-	var event0 = [];
-	event0.command = "rotate";
-	event0.rotate = 90;
-	
-	var event1 = [];
-	event1.command = "rotate";
-	event1.rotate = -90;
-	
-	var event2 = [];
-	event2.command = "line";
-	event2.xstart = xcoord;
-	event2.ystart = ycoord;
-	event2.xend = 30;
-	event2.yend = 30;
-	
-	var event3 = [];
-	event3.command = "line";
-	event3.xstart = event2.xend;
-	event3.ystart = event2.yend;
-	event3.xend = 90;
-	event3.yend = 100;
-	
-	var event4 = [];
-	event4.command = "line";
-	event4.xstart = event3.xend;
-	event4.ystart = event3.yend;
-	event4.xend = 50;
-	event4.yend = 45;
-	
-	var event5 = [];
-	event5.command = "rotate";
-	event5.rotate = -90;
-	
-	var event6 = [];
-	event6.command = "line";
-	event6.xstart = event4.xend;
-	event6.ystart = event4.yend;
-	event6.xend = 550;
-	event6.yend = 45;
-	
-	var event7 = [];
-	event7.command = "line";
-	event7.xstart = event6.xend;
-	event7.ystart = event6.yend;
-	event7.xend = 550;
-	event7.yend = 545;
-	*/
-
-			
-			/*
-			var event0 = [];
-			event0.command = myEvents[0];
-			event0.rotate = myEvents[1];
-			
-			var event1 = [];
-			event1.command = myEvents[2];
-			event1.rotate = myEvents[3];
-		
-		*/
-	
-	
-	
-	/*
-	//add samples into event list
-	eventList.push (event0);
-	eventList.push (event1);
-		*/
-		
-		
-	 //distance to x and y
-
-
-
 
 	//Get the events from output area.
 	var myEvents = ($(".myString")).text();
@@ -131,13 +55,13 @@
 	for (index = 0; index < myEvents.length; ++index) {
 	var event = [];
 		console.log("Current word is "+myEvents[index]);
-    	if ( myEvents[index].indexOf('rotate') >= 0){
+    	
+		if ( myEvents[index].indexOf('rotate') >= 0){
     		event.command = myEvents[index];
     		++index;
     		event.rotate = myEvents[index];
     		
-    		eventList.push (event);
-    		
+    		eventList.push (event);	
     	}
     	
     	if ( myEvents[index].indexOf('forward') >= 0) {
@@ -150,6 +74,16 @@
     		event.yend = myEvents[index];
     		eventList.push(event);
     	}
+		
+    	if ( myEvents[index].indexOf('speed') >= 0) {
+    	var event = [];
+    	console.log("got a speed");
+    		event.command = "speed";
+    		++index;
+    		event.speed = myEvents[index];
+    		eventList.push(event);
+    	}
+			
 	}
 	
 	 var distancex;
@@ -162,10 +96,13 @@
 	 
 	 
 	 paper.view.onFrame = function(event) {
-			//check if we have an event to be done
-			if (x < eventList.length) {
+		//check if we have an event to be done
+		if (x < eventList.length) {
 		
+			//check if curent event is a line movement
 			if (eventList[x].command == "line") {
+			
+				//calculate distancex and distancey if not calculated yet
 				if (!eventList[x].hasOwnProperty("distancex")) {
 					
 					if (eventList[x].xend > xcoord ) eventList[x].distancex = eventList[x].xend - xcoord;
@@ -186,10 +123,13 @@
 	
 				}
 				
+				//calculate hypotenuse to get distance required if not calculated yet
 				if (!eventList[x].hasOwnProperty("distanceh")) {
 				
 				eventList[x].distanceh = Math.sqrt((eventList[x].distancex * eventList[x].distancex) + (eventList[x].distancey * eventList[x].distancey))
-				eventList[x].distanceh = Math.round(eventList[x].distanceh)
+				
+				//dont need to round off apparently
+				//eventList[x].distanceh = Math.round(eventList[x].distanceh)
 				
 				}
 				
@@ -209,6 +149,7 @@
 				
 				} else {
 
+					//reverse angle temporarily
 					turtleAngle = -turtleAngle;
 					//convert to radians
 					var angleRadians = (turtleAngle * (Math.PI / 180));
@@ -219,8 +160,20 @@
 					xDest = Math.cos(angleRadians);
 					
 					//adjust speed
+					//make condition to check if we are approaching destination, if we are, dont overshoot
+					if (speed <= eventList[x].distanceh) {
 					xDest = xDest * speed;
 					yDest = yDest * speed;
+					
+					}
+					else {
+					console.log("should see me once!!");
+					xDest = xDest * (eventList[x].distanceh - speed);
+					yDest = yDest * (eventList[x].distanceh - speed);
+					x++;
+					
+					
+					}
 				
 					// increase path
 					turtlePath.add(new paper.Point (xcoord - xDest, ycoord - yDest)); 
@@ -263,6 +216,17 @@
 					}
 				}
 			}
+			
+			if (x < eventList.length) {
+				if (eventList[x].command == "speed") {
+					
+					// change speed
+					speed = eventList[x].speed;
+					x++;
+					
+				}
+			}
+			
 		}  
 	} //END ON FRAME FUNCTION
 

@@ -125,39 +125,48 @@
 	var eventList = [];
 	//create events, push them into list...
 	var index;
-	var event = [];
+	//var event = [];
 
 	//loop through array and create events
 	for (index = 0; index < myEvents.length; ++index) {
-    	if ( (myEvents[index]) == "rotate"){
-    		//var event = [];
-    		event.command = event[index];
-    		index++;
-    		event.rotate = event[index];
+	var event = [];
+		console.log("Current word is "+myEvents[index]);
+    	if ( myEvents[index].indexOf('rotate') >= 0){
+    		event.command = myEvents[index];
+    		++index;
+    		event.rotate = myEvents[index];
+    		
     		eventList.push (event);
     		
-    	}else if ( (myEvents[index]) == "forward") {
-    		//var event = [];
-    		event.command = event[index];
-    		index++;
-    		event.xend = event[index];
-    		index++;
-    		event.yend = event[index];
+    	}
+    	
+    	if ( myEvents[index].indexOf('forward') >= 0) {
+    	var event = [];
+    	console.log("got to forward");
+    		event.command = myEvents[index];
+    		++index;
+    		event.xend = myEvents[index];
+    		++index;
+    		event.yend = myEvents[index];
     		eventList.push(event);
     	}
 	}
-			
+	
 	 var distancex;
 	 var distancey;
 	 
 	 var x = 0; //event index
+	 
+	 console.log("Event name:" + eventList[0].command);
+	 console.log("Event xend:" + eventList[0].xend);
+	 
 	 
 	 paper.view.onFrame = function(event) {
 			//check if we have an event to be done
 			if (x < eventList.length) {
 		
 			if (eventList[x].command == "line") {
-		
+			console.log("got to line");
 				if (!eventList[x].hasOwnProperty("distancex")) {
 					
 					if (eventList[x].xend > xcoord ) eventList[x].distancex = eventList[x].xend - xcoord;
@@ -211,7 +220,7 @@
 			
 			if (x < eventList.length) {
 				if (eventList[x].command == "rotate") {
-	
+					console.log("got to rotate");
 					if (eventList[x].rotate > 0) {
 					raster.rotate(1); //rotate clockwise
 					eventList[x].rotate--; //decrease angle until we hit 0

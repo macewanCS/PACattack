@@ -8,6 +8,7 @@ class pacturtle:
 	starty = homex
 	startx = homex 
 	turtleAngle = 90 #turtle is point up, 90 degrees to the x-axis
+	turtleSpeed = 2
 	checkPac = 0
 	#magic word
 	#print "PAC:"
@@ -44,5 +45,12 @@ class pacturtle:
 		self.starty = endy
 		#reset angle
 		self.turtleAngle = -self.turtleAngle
+		
+	def speed(self, speed):
+		if self.checkPac == 0:
+			self.checkPac = 1
+			print "PAC:"
+		print "speed", speed
+		self.turtleSpeed = speed
 		
 		

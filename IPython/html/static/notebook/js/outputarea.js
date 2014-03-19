@@ -597,7 +597,7 @@ var IPython = (function (IPython) {
         
         
 		
-       //toinsert.append($("<pre/>").html(data));
+       toinsert.append($("<pre/>").html(data));
 
 		var turtlecmds = "";
         //parse through data and create a turtlecmds string

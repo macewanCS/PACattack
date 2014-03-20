@@ -611,7 +611,7 @@ var IPython = (function (IPython) {
 		
 		//string to pass to mypaper.js
 		//if we have turtlecmds
-		/*
+		
 		if (turtlecmds.length > 0){
 			var test = $('<div\>').addClass('myString');
 			test.append(turtlecmds).hide();
@@ -637,7 +637,7 @@ var IPython = (function (IPython) {
 			toinsert.append(c);
 	
 			toinsert.append(canvas);
-		}*/
+		}
 		//toinsert.append($("<div/>").html(myscript));
 
 		//}

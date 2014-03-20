@@ -602,14 +602,16 @@ var IPython = (function (IPython) {
 		var turtlecmds = "";
         //parse through data and create a turtlecmds string
 		if ((data.search("PAC")) > -1) {
-			turtlecmds = data.replace(/\r?\n/g, " ")
-			turtlecmds = turtlecmds.replace("PAC: ", "");
+
+			turtlecmds = data.replace(/\r?\n/g, " ");
+			turtlecmds = turtlecmds.replace(new RegExp("PAC: ", "g"), "");
 		
-			//toinsert.append($("<pre/>").html(turtlecmds));
+			toinsert.append($("<pre/>").html("Turtle cmd string is \n" + turtlecmds));
 		}
 		
 		//string to pass to mypaper.js
 		//if we have turtlecmds
+		/*
 		if (turtlecmds.length > 0){
 			var test = $('<div\>').addClass('myString');
 			test.append(turtlecmds).hide();
@@ -635,7 +637,7 @@ var IPython = (function (IPython) {
 			toinsert.append(c);
 	
 			toinsert.append(canvas);
-		}
+		}*/
 		//toinsert.append($("<div/>").html(myscript));
 
 		//}
@@ -649,6 +651,8 @@ var IPython = (function (IPython) {
             var linedata = "Number of Lines: " + (lines.length-1);
         	toinsert.append($("<pre/>").html(linedata));
         }   */
+        
+        
         element.append(toinsert);
     };
 

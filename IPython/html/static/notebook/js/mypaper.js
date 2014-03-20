@@ -33,8 +33,6 @@
 	// Scale the image by 50%
 	raster.scale(0.5);
 
-	
-	
 	//speed of line movement
 	var speed = 2;
 
@@ -43,6 +41,7 @@
 	
 	//set color of stroke
 	turtlePath.strokeColor = 'black';
+	
 	//set thickness
 	turtlePath.strokeWidth = penSize;
 	turtlePath.add(new paper.Point (xcoord, ycoord));
@@ -74,8 +73,8 @@
     	}
     	
     	if ( myEvents[index].indexOf('line') >= 0) {
-    	var event = [];
-    	console.log("make line cmd");
+    		var event = [];
+    		console.log("make line cmd");
     		event.command = "line";
     		++index;
     		event.xend = myEvents[index];
@@ -85,8 +84,8 @@
     	}
 		
     	if ( myEvents[index].indexOf('speed') >= 0) {
-    	var event = [];
-    	console.log("got a speed");
+    		var event = [];
+    		console.log("got a speed");
     		event.command = "speed";
     		++index;
     		event.speed = myEvents[index];
@@ -94,8 +93,8 @@
     	}
 
     	if ( myEvents[index].indexOf('penstatus') >= 0) {
-    	var event = [];
-    	console.log("got penstatus change cmd");
+    		var event = [];
+    		console.log("got penstatus change cmd");
     		event.command = "penstatus";
     		++index;
     		event.toggle = myEvents[index];
@@ -103,8 +102,8 @@
     	}
 
     	if ( myEvents[index].indexOf('pensize') >= 0) {
-    	var event = [];
-    	console.log("pensize cmd");
+    		var event = [];
+    		console.log("pensize cmd");
     		event.command = "pensize";
     		++index;
     		event.penSize = myEvents[index];
@@ -112,8 +111,8 @@
     	}
 		
     	if ( myEvents[index].indexOf('goto') >= 0) {
-    	var event = [];
-    	console.log("goto cmd made");
+    		var event = [];
+    		console.log("goto cmd made");
     		event.command = "line";
     		++index;
     		event.xend = myEvents[index];
@@ -122,6 +121,8 @@
 	
     		eventList.push(event);
     	}
+    	
+    	
 			
 	}
 	
@@ -330,7 +331,7 @@
 			
 			if (x < eventList.length) {
 				if (eventList[x].command == "penstatus") {
-				/					
+									
 					// change pen status (penup or pendown)
 					if (eventList[x].toggle == 1) {
 						turtlePath.strokeWidth = penSize;

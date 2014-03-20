@@ -57,7 +57,7 @@ class pacturtle:
 		endx = self.startx - endx
 		endy = self.starty + endy
 		
-		print "PAC: line", endx , endy 
+		print "PAC: backward", endx , endy 
 		
 		#set up new startpoints
 		self.startx = endx
@@ -101,7 +101,7 @@ class pacturtle:
 		endx = x
 		endy = -y
 		
-		print "PAC: line", endx , endy 
+		print "PAC: goTo", endx , endy 
 		
 		#set up new startpoints
 		self.startx = endx

@@ -19,7 +19,12 @@
 	// turtle coordinates (start at home)
 	var xcoord = xhome;
 	var ycoord = yhome;
+	
+	//pen status for penup and pendown command. 1 means were are drawing (pendown)
+	var penstatus = 1;
 
+	//thickness of pen (between 1-10)
+	var penSize = 1;
 	
 	// image position
 	raster.position.x = xcoord;
@@ -30,12 +35,16 @@
 
 	
 	
-	//speed of movement
+	//speed of line movement
 	var speed = 2;
 
 	// create path object for turtle
 	var turtlePath = new paper.Path();
-	turtlePath.strokeColor = 'blue';
+	
+	//set color of stroke
+	turtlePath.strokeColor = 'black';
+	//set thickness
+	turtlePath.strokeWidth = penSize;
 	turtlePath.add(new paper.Point (xcoord, ycoord));
 	
 	
@@ -64,9 +73,9 @@
     		eventList.push (event);	
     	}
     	
-    	if ( myEvents[index].indexOf('forward') >= 0) {
+    	if ( myEvents[index].indexOf('line') >= 0) {
     	var event = [];
-    	console.log("got to forward");
+    	console.log("make line cmd");
     		event.command = "line";
     		++index;
     		event.xend = myEvents[index];
@@ -81,6 +90,36 @@
     		event.command = "speed";
     		++index;
     		event.speed = myEvents[index];
+    		eventList.push(event);
+    	}
+
+    	if ( myEvents[index].indexOf('penstatus') >= 0) {
+    	var event = [];
+    	console.log("got penstatus change cmd");
+    		event.command = "penstatus";
+    		++index;
+    		event.toggle = myEvents[index];
+    		eventList.push(event);
+    	}
+
+    	if ( myEvents[index].indexOf('pensize') >= 0) {
+    	var event = [];
+    	console.log("pensize cmd");
+    		event.command = "pensize";
+    		++index;
+    		event.penSize = myEvents[index];
+    		eventList.push(event);
+    	}
+		
+    	if ( myEvents[index].indexOf('goto') >= 0) {
+    	var event = [];
+    	console.log("goto cmd made");
+    		event.command = "line";
+    		++index;
+    		event.xend = myEvents[index];
+    		++index;
+    		event.yend = myEvents[index];		
+	
     		eventList.push(event);
     	}
 			
@@ -275,6 +314,32 @@
 					speed = eventList[x].speed;
 					x++;
 					
+				}
+			}
+			
+			if (x < eventList.length) {
+				if (eventList[x].command == "penSize") {
+					
+					// change pen size
+					turtlePath.strokeWidth = eventList[x].penSize;
+					x++;
+					
+				}
+			}
+			
+			
+			if (x < eventList.length) {
+				if (eventList[x].command == "penstatus") {
+				/					
+					// change pen status (penup or pendown)
+					if (eventList[x].toggle == 1) {
+						turtlePath.strokeWidth = penSize;
+						x++;
+					}
+					else {
+						turtlePath.strokeWidth = 0;
+						x++
+					}
 				}
 			}
 			

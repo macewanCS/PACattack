@@ -21,10 +21,13 @@
 	var ycoord = yhome;
 	
 	//pen status for penup and pendown command. 1 means were are drawing (pendown)
-	var penstatus = 1;
+	var penStatus = 1;
 
 	//thickness of pen (between 1-10)
 	var penSize = 1;
+	
+	//set default color
+	var penColor = 'black'
 	
 	// image position
 	raster.position.x = xcoord;
@@ -40,7 +43,7 @@
 	var turtlePath = new paper.Path();
 	
 	//set color of stroke
-	turtlePath.strokeColor = 'black';
+	turtlePath.strokeColor = penColor;
 	
 	//set thickness
 	turtlePath.strokeWidth = penSize;
@@ -71,6 +74,14 @@
     		
     		eventList.push (event);	
     	}
+
+		if ( myEvents[index].indexOf('penColor') >= 0){
+    		event.command = myEvents[index];
+    		++index;
+    		event.penColor = myEvents[index];
+    		
+    		eventList.push (event);	
+    	}
     	
     	if ( myEvents[index].indexOf('line') >= 0) {
     		var event = [];
@@ -92,19 +103,19 @@
     		eventList.push(event);
     	}
 
-    	if ( myEvents[index].indexOf('penstatus') >= 0) {
+    	if ( myEvents[index].indexOf('penStatus') >= 0) {
     		var event = [];
     		console.log("got penstatus change cmd");
-    		event.command = "penstatus";
+    		event.command = "penStatus";
     		++index;
     		event.toggle = myEvents[index];
     		eventList.push(event);
     	}
 
-    	if ( myEvents[index].indexOf('pensize') >= 0) {
+    	if ( myEvents[index].indexOf('penSize') >= 0) {
     		var event = [];
     		console.log("pensize cmd");
-    		event.command = "pensize";
+    		event.command = "penSize";
     		++index;
     		event.penSize = myEvents[index];
     		eventList.push(event);
@@ -321,8 +332,41 @@
 			if (x < eventList.length) {
 				if (eventList[x].command == "penSize") {
 					
-					// change pen size
-					turtlePath.strokeWidth = eventList[x].penSize;
+					// make new path for thickness change
+					turtlePath = new paper.Path();
+
+									
+					//set color of stroke
+					turtlePath.strokeColor = penColor;
+					
+					//set thickness
+					turtlePath.add(new paper.Point (xcoord, ycoord));
+
+					penSize = eventList[x].penSize;
+				
+					if (penStatus == 1) {
+						turtlePath.strokeWidth = penSize;
+				}
+					
+					x++;
+					
+				}
+			}
+			
+			if (x < eventList.length) {
+				if (eventList[x].command == "penColor") {
+					
+					// make new path for thickness change
+					turtlePath = new paper.Path();
+
+					//set color of stroke
+					penColor = eventList[x].penColor;
+					turtlePath.strokeColor = penColor;
+					
+					//set thickness
+					turtlePath.add(new paper.Point (xcoord, ycoord));
+
+					turtlePath.strokeWidth = penSize;
 					x++;
 					
 				}
@@ -330,15 +374,37 @@
 			
 			
 			if (x < eventList.length) {
-				if (eventList[x].command == "penstatus") {
+				if (eventList[x].command == "penStatus") {
 									
 					// change pen status (penup or pendown)
+				
+					//if pen is on
 					if (eventList[x].toggle == 1) {
+					
+						// make new path!
+						turtlePath = new paper.Path();
+						turtlePath.add(new paper.Point (xcoord, ycoord));
+
+						//turn size to 0 as we are not drawing line
 						turtlePath.strokeWidth = penSize;
+						//set color of stroke
+						turtlePath.strokeColor= penColor;
 						x++;
+					
+					
 					}
+					//if pen is off
 					else {
+						
+						// make new path!
+						turtlePath = new paper.Path();
+						
+						turtlePath.add(new paper.Point (xcoord, ycoord));
+		
+						//set size
 						turtlePath.strokeWidth = 0;
+						//set color of stroke
+						turtlePath.strokeColor = penColor;
 						x++
 					}
 				}

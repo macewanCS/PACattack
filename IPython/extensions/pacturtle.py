@@ -12,8 +12,7 @@ class pacturtle:
 	checkPac = 0
 	penDrawing = 1
 	penSize = 1
-	#magic word
-	#print "PAC:"
+	penColor = 'black'
 				
 	def forward(self, distance):
 		#calculate endpoints
@@ -96,6 +95,10 @@ class pacturtle:
 	def pensize(self, size):
 		print "PAC: penSize", size
 		penSize = size;
+		
+	def pencolor(self, color):
+		print "PAC: penColor", color
+		penColor = color;
 		
 	def goto(self, x, y):
 		endx = x

@@ -54,7 +54,7 @@
 	//loop through array and create events
 	for (index = 0; index < myEvents.length; ++index) {
 	var event = [];
-		console.log("Current word is "+myEvents[index]);
+		console.log("Current word is " + myEvents[index]);
     	
 		if ( myEvents[index].indexOf('rotate') >= 0){
     		event.command = myEvents[index];
@@ -91,9 +91,10 @@
 	 
 	 var x = 0; //event index
 	 
-	 console.log("Event name:" + eventList[0].command);
-	 console.log("Event xend:" + eventList[0].xend);
+	 //console.log("Event name:" + eventList[0].command);
+	 //console.log("Event xend:" + eventList[0].xend);
 	 
+	 console.log("Number of events: " + eventList.length);
 	 
 	 paper.view.onFrame = function(event) {
 		//check if we have an event to be done
@@ -102,6 +103,13 @@
 			//check if curent event is a line movement
 			if (eventList[x].command == "line") {
 			
+			
+			console.log("IN LINE Event name:" + eventList[x].command);
+	 		/*console.log("Event xend:" + eventList[x].xend);
+	 		console.log("Event xcurr:" + xcoord);
+			console.log("Event yend:" + eventList[x].yend);
+	 		console.log("Event ycurr:" + ycoord);	
+			*/
 				//calculate distancex and distancey if not calculated yet
 				if (!eventList[x].hasOwnProperty("distancex")) {
 					
@@ -139,15 +147,41 @@
 				var difx;
 				difx = xcoord - eventList[x].xend;
 				difx = Math.abs(difx);
+				
+				//
 				var dify;
 				dify = ycoord - eventList[x].yend;
 				dify = Math.abs(dify);
 				
 				//check if done
 				if ((Math.floor(difx) == 0) && (Math.floor(dify) == 0 )){
-				x++;
+					x++;
 				
+				} else if (difx < speed && dify < speed) {
+					//go to end location
+					console.log("Current x is: " + xcoord + " endx is " + eventList[x].xend);
+					console.log("Current y is: " + ycoord + " endy is " + eventList[x].yend);
+					
+					
+					var newx = Math.floor( eventList[x].xend);
+					var newy = Math.floor( eventList[x].yend);
+					console.log ("THIS SHOULED BE 350 " + newx);
+					//draw the turtle
+					//fix turtle path stuff
+					// whe have eventList[x].xend it goes there
+						turtlePath.add(new paper.Point(newx, newy));
+
+						//move turtle to new point
+						raster.position.x = eventList[x].xend;
+						raster.position.y = eventList[x].yend;
+
+						ycoord = eventList[x].yend;
+						xcoord = eventList[x].xend;
+						
+						console.log ("Now x is " + xcoord + " Now y is " + ycoord);
+						++x;
 				} else {
+
 
 					//reverse angle temporarily
 					turtleAngle = -turtleAngle;
@@ -159,32 +193,49 @@
 					yDest = -yDest; //y coord increase in down direction 
 					xDest = Math.cos(angleRadians);
 					
+					
+					//console.log("Speed is " + dummyspeed + " eventList.x.distance is " + eventList[x].distanceh);
+					
+					// OLD
 					//adjust speed
 					//make condition to check if we are approaching destination, if we are, dont overshoot
+					//speed = 37
+					
 					if (speed <= eventList[x].distanceh) {
-					xDest = xDest * speed;
-					yDest = yDest * speed;
-					
+						xDest = xDest * speed;
+						yDest = yDest * speed;
+
+						//updsate distanceh (appropriately...)
+						eventList[x].distanceh = Math.sqrt(((eventList[x].xend-xcoord) * (eventList[x].xend-xcoord)) + ((eventList[x].yend-ycoord) * (eventList[x].yend-ycoord)))
+
+						// increase path
+						turtlePath.add(new paper.Point (xcoord - xDest, ycoord - yDest)); 
+
+						//move turtle to new point
+						raster.position.x = xcoord - xDest;
+						raster.position.y = ycoord - yDest;
+
+						//update new coordinate for turtle position
+						xcoord = xcoord - xDest;
+						ycoord = ycoord - yDest;
+					}else {
+						console.log("should see me once!!");
+						//go to end location
+
+						turtlePath.add(new paper.Point (xcoord, ycoord)); 
+
+						//move turtle to new point
+						raster.position.x = xcoord;
+						raster.position.y = ycoord;
+
+
+						ycoord = eventList[x].yend;
+						xcoord = eventList[x].xend;
+						++x;
 					}
-					else {
-					console.log("should see me once!!");
-					xDest = xDest * (eventList[x].distanceh - speed);
-					yDest = yDest * (eventList[x].distanceh - speed);
-					x++;
-					
-					
-					}
+
 				
-					// increase path
-					turtlePath.add(new paper.Point (xcoord - xDest, ycoord - yDest)); 
-					
-					//move turtle to new point
-					raster.position.x = xcoord - xDest;
-					raster.position.y = ycoord - yDest;
-					
-					//update new coordinate for turtle position
-					xcoord = xcoord - xDest;
-					ycoord = ycoord - yDest;
+
 					
 					//set angle back
 					turtleAngle = -turtleAngle;

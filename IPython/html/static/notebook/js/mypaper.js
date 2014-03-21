@@ -29,6 +29,7 @@
 	//set default color
 	var penColor = 'black';
 	
+	
 	// image position
 	raster.position.x = xcoord;
 	raster.position.y = ycoord;
@@ -51,6 +52,8 @@
 	
 	
 	var angle = 90; //this is to keep track of the turtles angle.
+	var newAngle = turtleAngle;
+	var getAngle = false;
 
 	//Get the events from output area.
 	var myEvents = ($(".myString")).text();
@@ -70,7 +73,8 @@
 		if ( myEvents[index].indexOf('rotate') >= 0){
     		event.command = myEvents[index];
     		++index;
-    		event.rotate = myEvents[index];
+    		event.rotate = 0;
+    		event.rotate = Number(myEvents[index]);
     		
     		eventList.push (event);	
     	}
@@ -99,7 +103,7 @@
     		console.log("got a speed");
     		event.command = "speed";
     		++index;
-    		event.speed = myEvents[index];
+    		event.speed = Number(myEvents[index]);
     		eventList.push(event);
     	}
 
@@ -150,17 +154,11 @@
 	 paper.view.onFrame = function(event) {
 		//check if we have an event to be done
 		if (x < eventList.length) {
-		
-			//check if curent event is a line movement
 			if (eventList[x].command == "line") {
-			
-			
-			console.log("IN LINE Event name:" + eventList[x].command);
-	 		/*console.log("Event xend:" + eventList[x].xend);
-	 		console.log("Event xcurr:" + xcoord);
-			console.log("Event yend:" + eventList[x].yend);
-	 		console.log("Event ycurr:" + ycoord);	
-			*/
+				console.log("IN LINE Event name:" + eventList[x].command);
+				console.log("Current x is: " + xcoord + " endx is " + eventList[x].xend);
+				console.log("Current y is: " + ycoord + " endy is " + eventList[x].yend);
+				
 				//calculate distancex and distancey if not calculated yet
 				if (!eventList[x].hasOwnProperty("distancex")) {
 					
@@ -179,27 +177,16 @@
 					if (eventList[x].yend > ycoord) {
 						eventList[x].distancey = -eventList[x].distancey;
 					}
-	
 				}
 				
 				//calculate hypotenuse to get distance required if not calculated yet
 				if (!eventList[x].hasOwnProperty("distanceh")) {
-				
-				eventList[x].distanceh = Math.sqrt((eventList[x].distancex * eventList[x].distancex) + (eventList[x].distancey * eventList[x].distancey))
-				
-				//dont need to round off apparently
-				//eventList[x].distanceh = Math.round(eventList[x].distanceh)
-				
+					eventList[x].distanceh = Math.sqrt((eventList[x].distancex * eventList[x].distancex) + (eventList[x].distancey * eventList[x].distancey))
 				}
 				
-				//keep drawing line until we reach end point
-				
-				//check if we are near our endpoint
 				var difx;
 				difx = xcoord - eventList[x].xend;
 				difx = Math.abs(difx);
-				
-				//
 				var dify;
 				dify = ycoord - eventList[x].yend;
 				dify = Math.abs(dify);
@@ -220,37 +207,30 @@
 					//draw the turtle
 					//fix turtle path stuff
 					// whe have eventList[x].xend it goes there
-						turtlePath.add(new paper.Point(newx, newy));
+					turtlePath.add(new paper.Point(newx, newy));
 
-						//move turtle to new point
-						raster.position.x = eventList[x].xend;
-						raster.position.y = eventList[x].yend;
+					//move turtle to new point
+					raster.position.x = eventList[x].xend;
+					raster.position.y = eventList[x].yend;
 
-						ycoord = eventList[x].yend;
-						xcoord = eventList[x].xend;
+					ycoord = eventList[x].yend;
+					xcoord = eventList[x].xend;
 						
-						console.log ("Now x is " + xcoord + " Now y is " + ycoord);
-						++x;
+					console.log ("Now x is " + xcoord + " Now y is " + ycoord);
+					++x;
 				} else {
-
-
 					//reverse angle temporarily
 					turtleAngle = -turtleAngle;
 					//convert to radians
-					var angleRadians = (turtleAngle * (Math.PI / 180));
+					var angleRadians = turtleAngle * (Math.PI / 180);
 									
 					//calculate coordinate 
-					yDest = Math.sin(angleRadians);
+					yDest = Math.sin(angleRadians).toFixed(2);
 					yDest = -yDest; //y coord increase in down direction 
-					xDest = Math.cos(angleRadians);
+					xDest = Math.cos(angleRadians).toFixed(2);
 					
-					
-					//console.log("Speed is " + dummyspeed + " eventList.x.distance is " + eventList[x].distanceh);
-					
-					// OLD
-					//adjust speed
-					//make condition to check if we are approaching destination, if we are, dont overshoot
-					//speed = 37
+					console.log ("xDest is " + xDest);
+					console.log("ydest is " + yDest);
 					
 					if (speed <= eventList[x].distanceh) {
 						xDest = xDest * speed;
@@ -284,55 +264,58 @@
 						xcoord = eventList[x].xend;
 						++x;
 					}
-
-				
-
-					
 					//set angle back
 					turtleAngle = -turtleAngle;
-					
-				
 				}
-					
-				
+						
 			}
 			
 			
-			
+			//turtleAngle is the current angle
+			//rotate is the amount we want to move
+			//speed controls how fast
 			
 			if (x < eventList.length) {
 				if (eventList[x].command == "rotate") {
-					console.log("got to rotate");
-					if (eventList[x].rotate > 0) {
-						raster.rotate(1 * speed); //rotate clockwise
-						eventList[x].rotate = eventList[x].rotate - speed; //decrease angle until we hit 0
-						turtleAngle++;
-						if (eventList[x].rotate < 0 ) {
-							eventList[x].rotate = 0;
-							turtleAngle = turtleAngle + speed;
-						}
+
+					if (getAngle) {
+						getAngle = false; //got newAngle
+						//set the new angle
+						newAngle = turtleAngle + eventList[x].rotate;
 					}
-					
-					
-					else if (eventList[x].rotate < 0) {
-						raster.rotate(-1 * speed); //rotate counterclockwise
-						console.log("ROTATE IS : " + eventList[x].rotate);
-						var temp = -speed;
-						eventList[x].rotate = eventList[x].rotate - temp; //increase angle until we hit 0
-						
-						if (eventList[x].rotate > 0 ) {
-							eventList[x].rotate = 0;
-							turtleAngle = turtleAngle - speed;
+				
+					console.log("got to rotate");
+					console.log("turtleAngle IS : " + turtleAngle);
+					console.log("eventROTATE IS : " + eventList[x].rotate);
+					if (parseFloat(eventList[x].rotate) > 0) {
+						raster.rotate(1 * speed); //rotate turtle image clockwise by speed
+						turtleAngle = turtleAngle + speed; //update the actual angle
+						eventList[x].rotate = eventList[x].rotate - speed; //decrease angle by the amount weve rotated
+						if (eventList[x].rotate  < 0 ) { //in the case where we overshoot our rotate
+							turtleAngle = newAngle;
+							
+							eventList[x].rotate = 0;	
 						}
-					} 
-					
-					else {
+						
+					} else if (eventList[x].rotate < 0) {
+						console.log("in rotate left");
+						raster.rotate(-1 * speed); //rotate counterclockwise
+						turtleAngle = turtleAngle - speed;
+						eventList[x].rotate = eventList[x].rotate + speed; //increase angle until we hit 0
+						if (eventList[x].rotate > 0 ) {
+							turtleAngle = newAngle;
+							eventList[x].rotate = 0;							
+						}
+
+						
+					} else {
 						// we are done rotating 
+						getAngle = true; //need to get a new Angle next time
 						x++;
 					}
+					
 				}
 			}
-			
 			
 			
 			

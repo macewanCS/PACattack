@@ -18,15 +18,14 @@ class pacturtle:
 		#calculate endpoints
 		self.turtleAngle = -self.turtleAngle
 		radians = math.radians(self.turtleAngle)
-		
 		endx = math.cos(radians)
-		endy =math.sin(radians)
+		endy = math.sin(radians)
 		
 		endx = distance * endx
 		endy =distance * endy
 		endy = endy #y goes down
 	
-		endx = self.startx - endx 
+		endx = self.startx - endx
 		endy = self.starty + endy
 		
 		print "PAC: line",endx ,endy 

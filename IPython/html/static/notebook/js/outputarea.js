@@ -596,18 +596,29 @@ var IPython = (function (IPython) {
         }
         
         
-		
-       toinsert.append($("<pre/>").html(data));
 
 		var turtlecmds = "";
         //parse through data and create a turtlecmds string
 		if ((data.search("PAC")) > -1) {
+			var lines = data.split(/\r\n|\r|\n/);
+			for (var i = 0;i < lines.length;i++){
+				if (lines[i].search("PAC") > -1) { //check if that line contains pac
+					turtlecmds = turtlecmds + lines[i].replace(new RegExp("PAC:", "g"), "");
+				
+				}
+			}
 
-			turtlecmds = data.replace(/\r?\n/g, " ");
-			turtlecmds = turtlecmds.replace(new RegExp("PAC: ", "g"), "");
+			//turtlecmds = oldData.replace(/\r?\n/g, " "); //remove all new lines
+			//turtlecmds = turtlecmds.replace(new RegExp("PAC: ", "g"), "");
 		
-			toinsert.append($("<pre/>").html("Turtle cmd string is \n" + turtlecmds));
+			data = data.replace(/^.*PAC:.*$/mg, "");
+			data = data.replace(/^\s*\n/gm, "");
+			
+			
+			toinsert.append($("<pre/>").html("Turtle command string is \n" + turtlecmds));
 		}
+		
+		toinsert.append($("<pre/>").html(data));
 		
 		//string to pass to mypaper.js
 		//if we have turtlecmds

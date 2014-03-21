@@ -110,14 +110,14 @@ class pacturtle:
 		self.startx = endx
 		self.starty = endy
 	
-	#def isDown(self):
-	#	if self.penDrawing == 1:
-			#print "True"
-			#else:
-			#print "False"
+	def isDown(self):
+		if self.penDrawing == 1:
+			print "True"
+		else:
+			print "False"
 			
-	#def isUp(self):
-	#	if self.penDrawing == 1:
-			#print "True"
-			#else:
-			#print "False"
+	def isUp(self):
+		if self.penDrawing == 1:
+			print "False"
+		else:
+			print "True"

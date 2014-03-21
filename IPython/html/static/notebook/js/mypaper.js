@@ -27,7 +27,7 @@
 	var penSize = 1;
 	
 	//set default color
-	var penColor = 'black'
+	var penColor = 'black';
 	
 	// image position
 	raster.position.x = xcoord;

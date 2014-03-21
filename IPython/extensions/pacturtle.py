@@ -99,6 +99,12 @@ class pacturtle:
 		print "PAC: penColor", color
 		penColor = color;
 		
+		
+	def circle(self, radius):
+		for x in range(0, 360):
+			self.forward(self.turtleSpeed)
+			self.right(self.turtleSpeed)
+		
 	def goto(self, x, y):
 		endx = x
 		endy = -y

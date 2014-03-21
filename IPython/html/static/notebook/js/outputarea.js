@@ -615,7 +615,7 @@ var IPython = (function (IPython) {
 			data = data.replace(/^\s*\n/gm, "");
 			
 			
-			//toinsert.append($("<pre/>").html("Turtle command string is \n" + turtlecmds));
+			toinsert.append($("<pre/>").html("Turtle command string is \n" + turtlecmds));
 		}
 		
 		toinsert.append($("<pre/>").html(data));

@@ -37,7 +37,7 @@
 	raster.scale(0.5);
 
 	//speed of line movement
-	var speed = 2;
+	var speed = 6;
 
 	// create path object for turtle
 	var turtlePath = new paper.Path();
@@ -297,27 +297,44 @@
 				
 			}
 			
+			
+			
+			
 			if (x < eventList.length) {
 				if (eventList[x].command == "rotate") {
 					console.log("got to rotate");
 					if (eventList[x].rotate > 0) {
-					raster.rotate(1); //rotate clockwise
-					eventList[x].rotate--; //decrease angle until we hit 0
-					turtleAngle++;
+						raster.rotate(1 * speed); //rotate clockwise
+						eventList[x].rotate = eventList[x].rotate - speed; //decrease angle until we hit 0
+						turtleAngle++;
+						if (eventList[x].rotate < 0 ) {
+							eventList[x].rotate = 0;
+							turtleAngle = turtleAngle + speed;
+						}
 					}
 					
 					
 					else if (eventList[x].rotate < 0) {
-					raster.rotate(-1); //rotate counterclockwise
-					eventList[x].rotate++; //increase angle until we hit 0
-					turtleAngle--;
-					}
+						raster.rotate(-1 * speed); //rotate counterclockwise
+						console.log("ROTATE IS : " + eventList[x].rotate);
+						var temp = -speed;
+						eventList[x].rotate = eventList[x].rotate - temp; //increase angle until we hit 0
+						
+						if (eventList[x].rotate > 0 ) {
+							eventList[x].rotate = 0;
+							turtleAngle = turtleAngle - speed;
+						}
+					} 
+					
 					else {
-					// we are done rotating 
-					x++;
+						// we are done rotating 
+						x++;
 					}
 				}
 			}
+			
+			
+			
 			
 			if (x < eventList.length) {
 				if (eventList[x].command == "speed") {
@@ -346,7 +363,7 @@
 				
 					if (penStatus == 1) {
 						turtlePath.strokeWidth = penSize;
-				}
+					}
 					
 					x++;
 					

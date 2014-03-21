@@ -9,9 +9,6 @@
 	// Create a raster item using the image tag with id='raster'
 	var raster = new paper.Raster('/static/notebook/js/turtle.png');
 
-	//turtle starts at 90 degrees (looking up) to x-axis
-	var turtleAngle = 90;
-
 	// home coordinates
 	var xhome = 250;
 	var yhome = 250;
@@ -50,10 +47,11 @@
 	turtlePath.strokeWidth = penSize;
 	turtlePath.add(new paper.Point (xcoord, ycoord));
 	
-	
+	//turtle starts at 90 degrees (looking up) to x-axis
+	var turtleAngle = 90;
 	var angle = 90; //this is to keep track of the turtles angle.
-	var newAngle = turtleAngle;
-	var getAngle = false;
+	var newAngle = 0;
+	var getAngle = true;
 
 	//Get the events from output area.
 	var myEvents = ($(".myString")).text();
@@ -291,7 +289,7 @@
 						raster.rotate(1 * speed); //rotate turtle image clockwise by speed
 						turtleAngle = turtleAngle + speed; //update the actual angle
 						eventList[x].rotate = eventList[x].rotate - speed; //decrease angle by the amount weve rotated
-						if (eventList[x].rotate  < 0 ) { //in the case where we overshoot our rotate
+						if (eventList[x].rotate  <= 0 ) { //in the case where we overshoot our rotate
 							turtleAngle = newAngle;
 							
 							eventList[x].rotate = 0;	
@@ -302,7 +300,8 @@
 						raster.rotate(-1 * speed); //rotate counterclockwise
 						turtleAngle = turtleAngle - speed;
 						eventList[x].rotate = eventList[x].rotate + speed; //increase angle until we hit 0
-						if (eventList[x].rotate > 0 ) {
+						
+						if (eventList[x].rotate >= 0 ) {
 							turtleAngle = newAngle;
 							eventList[x].rotate = 0;							
 						}

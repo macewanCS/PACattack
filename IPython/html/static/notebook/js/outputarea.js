@@ -237,7 +237,9 @@ var IPython = (function (IPython) {
         var msg_type = json.output_type = msg.header.msg_type;
         var content = msg.content;
         if (msg_type === "stream") {
+            var lines = content.data.split(/\r\n|\r|\n/);
             json.text = content.data;
+	   		//json.text = content.data + "Number of Lines: " + (lines.length-1);
             json.stream = content.name;
         } else if (msg_type === "display_data") {
             json = content.data;
@@ -256,6 +258,7 @@ var IPython = (function (IPython) {
         this.append_output(json);
     };
 
+    
     OutputArea.mime_map = {
         "text/plain" : "text",
         "text/html" : "html",
@@ -591,7 +594,76 @@ var IPython = (function (IPython) {
         if (extra_class){
             toinsert.addClass(extra_class);
         }
-        toinsert.append($("<pre/>").html(data));
+        
+        
+
+		var turtlecmds = "";
+        //parse through data and create a turtlecmds string
+		if ((data.search("PAC")) > -1) {
+			var lines = data.split(/\r\n|\r|\n/);
+			for (var i = 0;i < lines.length;i++){
+				if (lines[i].search("PAC") > -1) { //check if that line contains pac
+					turtlecmds = turtlecmds + lines[i].replace(new RegExp("PAC:", "g"), "");
+				
+				}
+			}
+
+			//turtlecmds = oldData.replace(/\r?\n/g, " "); //remove all new lines
+			//turtlecmds = turtlecmds.replace(new RegExp("PAC: ", "g"), "");
+		
+			data = data.replace(/^.*PAC:.*$/mg, "");
+			data = data.replace(/^\s*\n/gm, "");
+			
+			
+			toinsert.append($("<pre/>").html("Turtle command string is \n" + turtlecmds));
+		}
+		
+		toinsert.append($("<pre/>").html(data));
+		
+		//string to pass to mypaper.js
+		//if we have turtlecmds
+		
+		if (turtlecmds.length > 0){
+			var test = $('<div\>').addClass('myString');
+			test.append(turtlecmds).hide();
+			toinsert.append(test);
+
+			var canvas = document.createElement('canvas');
+			canvas.id = 'canvas1';
+			canvas.width = 800;
+			canvas.height = 600;
+			canvas.style = "border:1px solid #000000;";
+			canvas.resize;
+
+			var e = document.createElement('script');
+			e.type = '/text/javascript';
+			e.src = '/static/notebook/js/paper.js';
+			toinsert.append(e); 
+		
+			var c = document.createElement('script');
+			c.type = '/text/javascript';
+			c.src = '/static/notebook/js/mypaper.js';
+			c.canvas = 'canvas1';
+			c.data;
+			toinsert.append(c);
+	
+			toinsert.append(canvas);
+		}
+		//toinsert.append($("<div/>").html(myscript));
+
+		//}
+		
+        
+        
+     	//line count feature, when countthelines present
+     	/*
+        if (data.search("countthelines") > 0) {
+    		var lines = data.split(/\r\n|\r|\n/);
+            var linedata = "Number of Lines: " + (lines.length-1);
+        	toinsert.append($("<pre/>").html(linedata));
+        }   */
+        
+        
         element.append(toinsert);
     };
 

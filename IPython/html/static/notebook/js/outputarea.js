@@ -528,13 +528,15 @@ var IPython = (function (IPython) {
         'image/svg+xml',
         'image/png',
         'image/jpeg',
-        'text/plain'
+        'text/plain',
+        'turtle',
     ];
 
     OutputArea.safe_outputs = {
         'text/plain' : true,
         'image/png' : true,
-        'image/jpeg' : true
+        'image/jpeg' : true,
+        'turtle' : true
     };
     
     OutputArea.prototype.append_mime_type = function (json, element) {
@@ -582,6 +584,18 @@ var IPython = (function (IPython) {
             this._append_javascript_error(err, element);
         }
     };
+    
+
+	    //append the turtle mimetype
+    OutputArea.prototype.append_turtle = function (cmd, md, element) {
+        var type = 'text/plain';
+        var toinsert = this.create_output_subarea(md, "output_turtle", type);
+		
+		//comment out as this will not be in future implementation
+		toinsert.append($("<pre/>").html(cmd));
+
+        element.append(toinsert);
+    };
 
 
     OutputArea.prototype.append_text = function (data, md, element, extra_class) {
@@ -593,10 +607,9 @@ var IPython = (function (IPython) {
         data = utils.autoLinkUrls(data);
         if (extra_class){
             toinsert.addClass(extra_class);
-        }
+        }    
         
-        
-
+		/*
 		var turtlecmds = "";
         //parse through data and create a turtlecmds string
 		if ((data.search("PAC")) > -1) {
@@ -616,13 +629,13 @@ var IPython = (function (IPython) {
 			
 			
 			toinsert.append($("<pre/>").html("Turtle command string is \n" + turtlecmds));
-		}
+		}*/
 		
 		toinsert.append($("<pre/>").html(data));
 		
 		//string to pass to mypaper.js
 		//if we have turtlecmds
-		
+		/*
 		if (turtlecmds.length > 0){
 			var test = $('<div\>').addClass('myString');
 			test.append(turtlecmds).hide();
@@ -648,7 +661,7 @@ var IPython = (function (IPython) {
 			toinsert.append(c);
 	
 			toinsert.append(canvas);
-		}
+		}*/
 		//toinsert.append($("<div/>").html(myscript));
 
 		//}
@@ -750,6 +763,7 @@ var IPython = (function (IPython) {
         "text/latex" : OutputArea.prototype.append_latex,
         "application/json" : OutputArea.prototype.append_json,
         "application/javascript" : OutputArea.prototype.append_javascript,
+        "turtle" : OutputArea.prototype.append_turtle,
     };
 
     OutputArea.prototype.append_raw_input = function (msg) {

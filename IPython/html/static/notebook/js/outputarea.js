@@ -643,9 +643,9 @@ var IPython = (function (IPython) {
 
 			var canvas = document.createElement('canvas');
 			canvas.id = 'canvas1';
-			canvas.width = 800;
-			canvas.height = 600;
-			canvas.style = "border:1px solid #000000;";
+			canvas.width = 600;
+			canvas.height = 400;
+			canvas.style.border = "1px solid black"; 
 			canvas.resize;
 
 			var e = document.createElement('script');

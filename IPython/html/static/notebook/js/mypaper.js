@@ -266,13 +266,14 @@
 						}
 						
 					} else if (eventList[x].rotate < 0) {
-						rasterAngle+=speed;
+						rasterAngle-=speed;
 						raster.rotate(-1 * speed); //rotate counterclockwise
 						turtleAngle = turtleAngle - speed;
 						eventList[x].rotate = eventList[x].rotate + speed; //increase angle until we hit 0
 						
 						if (eventList[x].rotate >= 0 ) {
-							raster.rotate(-rasterAngle); //reset angle to 0
+							if (rasterAngle > 0) raster.rotate(-rasterAngle); //reset angle to 0
+							else raster.rotate(rasterAngle);
 							raster.rotate(newAngle); //update to be pointing in right direction
 							rasterAngle = newAngle; //update current raster angle
 							turtleAngle = newAngle;

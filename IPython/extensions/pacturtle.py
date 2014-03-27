@@ -158,8 +158,8 @@ class pacturtle:
 		
 	def circle(self, radius):
 		for x in range(0, 360):
-			self.forward(self.turtleSpeed)
-			self.right(self.turtleSpeed)
+			self.forward(2*math.pi*radius/360.0)
+			self.right(1)
 	
 	def isDown(self):
 		if self.penDrawing == 1:

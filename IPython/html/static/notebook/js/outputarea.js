@@ -588,11 +588,11 @@ var IPython = (function (IPython) {
 
 	    //append the turtle mimetype
     OutputArea.prototype.append_turtle = function (cmd, md, element) {
-        var type = 'text/plain';
+        var type = 'turtle';
         var toinsert = this.create_output_subarea(md, "output_turtle", type);
 		
 		//comment out as this will not be in future implementation
-		toinsert.append($("<pre/>").html(cmd));
+		//toinsert.append($("<pre/>").html(cmd));
 
         element.append(toinsert);
     };
@@ -609,7 +609,7 @@ var IPython = (function (IPython) {
             toinsert.addClass(extra_class);
         }    
         
-		/*
+		toinsert.append($("<pre/>").html(data));
 		var turtlecmds = "";
         //parse through data and create a turtlecmds string
 		if ((data.search("PAC")) > -1) {
@@ -620,22 +620,18 @@ var IPython = (function (IPython) {
 				
 				}
 			}
-
-			//turtlecmds = oldData.replace(/\r?\n/g, " "); //remove all new lines
-			//turtlecmds = turtlecmds.replace(new RegExp("PAC: ", "g"), "");
-		
 			data = data.replace(/^.*PAC:.*$/mg, "");
 			data = data.replace(/^\s*\n/gm, "");
 			
 			
 			toinsert.append($("<pre/>").html("Turtle command string is \n" + turtlecmds));
-		}*/
+		}
 		
 		toinsert.append($("<pre/>").html(data));
 		
 		//string to pass to mypaper.js
 		//if we have turtlecmds
-		/*
+		
 		if (turtlecmds.length > 0){
 			var test = $('<div\>').addClass('myString');
 			test.append(turtlecmds).hide();
@@ -661,7 +657,7 @@ var IPython = (function (IPython) {
 			toinsert.append(c);
 	
 			toinsert.append(canvas);
-		}*/
+		}
 		//toinsert.append($("<div/>").html(myscript));
 
 		//}

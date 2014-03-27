@@ -34,6 +34,7 @@
 	var turtleAngle = 90;
 	var angle = 90; //this is to keep track of the turtles angle.
 	var newAngle = 0;
+	var rasterAngle = 90;
 	var getAngle = true;
 	var oldAngle = turtleAngle;
 	//Get the events from output area.
@@ -251,22 +252,29 @@
 					}
 
 					if (parseFloat(eventList[x].rotate) > 0) {
+						rasterAngle += speed;
 						raster.rotate(1 * speed); //rotate turtle image clockwise by speed
 						turtleAngle = turtleAngle + speed; //update the actual angle
 						eventList[x].rotate = eventList[x].rotate - speed; //decrease angle by the amount weve rotated
 						if (eventList[x].rotate  <= 0 ) { //in the case where we overshoot our rotate
+							//reset raster angle
+							raster.rotate(-rasterAngle); //reset angle to 0
+							raster.rotate(newAngle); //update to be pointing in right direction
+							rasterAngle = newAngle; //update current raster angle
 							turtleAngle = newAngle;
-							
 							eventList[x].rotate = 0;	
 						}
 						
 					} else if (eventList[x].rotate < 0) {
-						console.log("in rotate left");
+						rasterAngle+=speed;
 						raster.rotate(-1 * speed); //rotate counterclockwise
 						turtleAngle = turtleAngle - speed;
 						eventList[x].rotate = eventList[x].rotate + speed; //increase angle until we hit 0
 						
 						if (eventList[x].rotate >= 0 ) {
+							raster.rotate(-rasterAngle); //reset angle to 0
+							raster.rotate(newAngle); //update to be pointing in right direction
+							rasterAngle = newAngle; //update current raster angle
 							turtleAngle = newAngle;
 							eventList[x].rotate = 0;							
 						}

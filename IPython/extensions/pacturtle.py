@@ -163,14 +163,30 @@ class pacturtle:
 			self.forward(2*math.pi*radius/360.0)
 			self.right(1)
 	
-	def isDown(self):
+	def isdown(self):
 		if self.penDrawing == 1:
 			print "True"
 		else:
 			print "False"
 			
-	def isUp(self):
-		if self.penDrawing == 1:
-			print "False"
+	def goto(self, x, y):
+		#calculate the angle...somehow
+
+		#dif of x
+		difx = self.startx - x
+		#dif of y
+		dify = self.starty - y
+		difx = abs(difx)
+		dify = abs(dify)
+		
+		print dify
+		print difx
+		
+		if difx == 0:
+			myAngle = 180
+		elif dify == 0:
+			myAngle = 0
 		else:
-			print "True"
+			myAngle = math.degrees(math.atan2(dify,difx))
+			myAngle = myAngle + 90
+		print "PAC: goTo ",x,y,myAngle

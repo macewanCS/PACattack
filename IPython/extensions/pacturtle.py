@@ -35,8 +35,7 @@ class pacturtle:
 	penDrawing = 1
 	penSize = 1
 	penColor = 'black'
-			
-				
+		
 	def forward(self, distance):
 		#calculate endpoints
 		self.turtleAngle = -self.turtleAngle
@@ -158,25 +157,42 @@ class pacturtle:
 			
 	def goto(self, x, y):
 		#calculate the angle...somehow
-
+#CHANGE START TO CURRENT
 		#dif of x
 		difx = self.startx - x
 		#dif of y
 		dify = self.starty - y
-		difx = abs(difx)
-		dify = abs(dify)
-		
-		print dify
-		print difx
 		
 		if difx == 0:
-			myAngle = 180
+			if (dify < 0):
+				myAngle = -90
+			else:
+				myAngle = 90
 		elif dify == 0:
-			myAngle = 0
+			if (difx > 0):
+				myAngle = 0
+			else:
+				myAngle = 180
 		else:
+			difx = abs(difx)
+			dify = abs(dify)
 			myAngle = math.degrees(math.atan2(dify,difx))
-			myAngle = myAngle + 90
-		print "PAC: goTo ",x,y,myAngle
+			#check the four quadrants
+			if ((self.starty - y) > 0 and (self.startx - x) < 0):
+				#print ("in quadrant 2")
+				myAngle = 180 - myAngle
+			elif ((self.starty - y) < 0 and (self.startx - x) < 0):
+				#print ("in quadrant 3")
+				myAngle = 180 + myAngle
+			elif ((self.starty - y) < 0 and (self.startx - x) > 0):
+				#print ("in quadrant 4")
+				myAngle = 360 - myAngle
+			else:
+				#print ("in quadrant1")
+				myAngle = myAngle
+		self.startx = x
+		self.starty = y
+		print "PAC: goTo", x, y, myAngle
 		
 	#def home(self):
 	#	self.goto(homex, homey)

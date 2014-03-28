@@ -6,8 +6,8 @@
 	var raster = new paper.Raster('/static/notebook/js/turtle.png');
 	 // home coordinates
 	 //will adjust this approprietly to center
-	var xhome = 250;
-	var yhome = 250;
+	var xhome = 300;
+	var yhome = 200;
 	 // turtle coordinates (start at home)
 	var xcoord = xhome;
 	var ycoord = yhome;

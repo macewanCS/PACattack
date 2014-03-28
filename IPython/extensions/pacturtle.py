@@ -24,11 +24,11 @@ class pacturtle:
 
 	display_data = [];
 	
-	homex = 250 #home of turtle
-	homey = 250 #xhome of turtle
+	homex = 300 #home of turtle
+	homey = 200 #xhome of turtle
 	#get start coordinates from home
-	starty = homex
-	startx = homex 
+	starty = homey
+	startx = homex
 	turtleAngle = 90 #turtle is point up, 90 degrees to the x-axis
 	turtleSpeed = 1
 	checkPac = 0
@@ -120,19 +120,6 @@ class pacturtle:
 		#publish_display_data('pacturtle.rotate', {'turtle':command})
 		self.turtleAngle = self.turtleAngle - angle
 		
-	def home(self):
-		endx = self.homex 
-		endy = self.homey
-		
-		print "PAC: line",endx ,endy 
-		#command = "line ",endx, " ", endy
-		#publish_display_data('pacturtle.home', {'turtle':command})
-		#set up new startpoints
-		self.startx = endx
-		self.starty = endy
-		#reset angle
-		self.turtleAngle = -self.turtleAngle
-		
 	def penup(self):
 		print "PAC: penStatus", 0
 		#command = "penStatus ",0
@@ -190,3 +177,6 @@ class pacturtle:
 			myAngle = math.degrees(math.atan2(dify,difx))
 			myAngle = myAngle + 90
 		print "PAC: goTo ",x,y,myAngle
+		
+	#def home(self):
+	#	self.goto(homex, homey)

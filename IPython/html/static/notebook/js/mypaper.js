@@ -361,13 +361,13 @@
 
 	                penSize = eventList[x].penSize;
 
-					alert(penStatus);
+					//alert(penStatus);
 	                if (penStatus == 1) {
 	                    turtlePath.strokeWidth = penSize;
 	                }
 					
 					else {
-						alert("setting to 0");
+						//alert("setting to 0");
 						turtlePath.strokeWidth = 0;
 
 					
@@ -577,6 +577,7 @@
 
 	                // go go go go1!!
 	                if (getGoToAngle) {
+	                	//alert(eventList[x].angle);
 	                    oldAngle = turtleAngle; //save turtle's real angle
 	                    turtleAngle = eventList[x].angle; //temporarily point turtleAngle to new endPoint
 	                    getGoToAngle = false;

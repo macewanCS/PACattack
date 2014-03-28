@@ -120,6 +120,17 @@ var IPython = (function (IPython) {
                         }
                 }
             ],'run_int');
+			
+		this.add_buttons_group([
+                {
+                    id : 'turtle_power',
+                    label : 'Turtle Help',
+                    icon : 'icon-info',
+                    callback : function () {
+						IPython.notebook.turtle_help();
+                        }
+                }
+            ],'turtle_power');
     };
 
     MainToolBar.prototype.add_celltype_list = function () {
@@ -136,6 +147,7 @@ var IPython = (function (IPython) {
                 .append($('<option/>').attr('value','heading4').text('Heading 4'))
                 .append($('<option/>').attr('value','heading5').text('Heading 5'))
                 .append($('<option/>').attr('value','heading6').text('Heading 6'))
+				.append($('<option/>').attr('value','heading6').text('Heading 7'))
             );
     };
 
@@ -195,6 +207,8 @@ var IPython = (function (IPython) {
                 IPython.notebook.to_heading(undefined, 5);
             } else if (cell_type === 'heading6')  {
                 IPython.notebook.to_heading(undefined, 6);
+			} else if (cell_type === 'heading7')  {
+                IPython.notebook.to_heading(undefined, 7);
             }
         });
         $([IPython.events]).on('selected_cell_type_changed.Notebook', function (event, data) {

@@ -194,5 +194,5 @@ class pacturtle:
 		self.starty = y
 		print "PAC: goTo", x, y, myAngle
 		
-	#def home(self):
-	#	self.goto(homex, homey)
+	def home(self):
+		self.goto(self.homex, self.homey)

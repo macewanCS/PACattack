@@ -30,7 +30,7 @@ class pacturtle:
 	starty = homex
 	startx = homex 
 	turtleAngle = 90 #turtle is point up, 90 degrees to the x-axis
-	turtleSpeed = 2
+	turtleSpeed = 1
 	checkPac = 0
 	penDrawing = 1
 	penSize = 1
@@ -66,6 +66,9 @@ class pacturtle:
 		self.turtleAngle = -self.turtleAngle
 		
 	def speed(self, speed):
+		
+		if (speed > 10):
+			speed = 10
 		print "PAC: speed", speed
 		#command = "speed ",speed
 		display_data = []
@@ -113,7 +116,6 @@ class pacturtle:
 		
 	def left(self, angle):
 		print "PAC: rotate", -angle
-		angle = -angle
 		#command = "rotate ",angle
 		#publish_display_data('pacturtle.rotate', {'turtle':command})
 		self.turtleAngle = self.turtleAngle - angle

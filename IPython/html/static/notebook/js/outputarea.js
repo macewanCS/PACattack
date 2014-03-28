@@ -609,7 +609,8 @@ var IPython = (function (IPython) {
             toinsert.addClass(extra_class);
         }    
         
-		toinsert.append($("<pre/>").html(data));
+		//before
+		//toinsert.append($("<pre/>").html(data));
 		var turtlecmds = "";
         //parse through data and create a turtlecmds string
 		if ((data.search("PAC")) > -1) {
@@ -624,7 +625,7 @@ var IPython = (function (IPython) {
 			data = data.replace(/^\s*\n/gm, "");
 			
 			
-			toinsert.append($("<pre/>").html("Turtle command string is \n" + turtlecmds));
+			//toinsert.append($("<pre/>").html("Turtle command string is \n" + turtlecmds));
 		}
 		
 		toinsert.append($("<pre/>").html(data));

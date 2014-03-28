@@ -19,22 +19,22 @@ class ITurtle:
     
     
     
-    def transmit(self,startX, startY, endX, endY):
-        print "PAC:%d,%d,%d,%d,%d,0x%d,%d,%d,%d." % (startX, startY, endX, endY, self.drawState, self.lineColor, self.moveSpeed, self.size, self.angle)
+    def transmit(self,startX, startY, endX, endY,angle):
+        print "PAC:%d,%d,%d,%d,%d,%d,%d,%d,%d," % (startX, startY, endX, endY, self.drawState, self.lineColor, self.moveSpeed, self.size,angle)
         
     """ Move the turtle forward relative to the current angle
         by the parameter distance. """
     def forward(self, distance):
         endX = self.x + (math.cos(self.angleRadians) * distance)
         endY = self.y - (math.sin(self.angleRadians) * distance)
-        self.transmit(self.x,self.y,endX,endY)
+        self.transmit(self.x,self.y,endX,endY,0)
         self.x = endX
         self.y = endY
         
     """ Setter for the speed that the turtle animates. """
     def speed(self, moveSpeed):
         self.moveSpeed = moveSpeed
-        self.transmit(self.x,self.y,self.x,self.y)
+        self.transmit(self.x,self.y,self.x,self.y,0)
         
     """ Move the turtle backward relative to the current angle
         by the parameter distance. """
@@ -44,9 +44,9 @@ class ITurtle:
     """ Rotate the turtle clockwise by the parameter angle measured
         in Euler angles. """        
     def right(self, angle):
-        self.angle = self.angle + angle
+        self.angle = (self.angle + angle)%360
         self.angleRadians = math.radians(self.angle)
-        self.transmit(self.x,self.y,self.x,self.y)
+        self.transmit(self.x,self.y,self.x,self.y,angle)
         
     """ Rotate the turtle clockwise by the parameter angle measured
         in Euler angles. """
@@ -57,23 +57,23 @@ class ITurtle:
         no longer draw when it moves. """
     def penup(self):
         self.drawState =0;
-        self.transmit(self.x,self.y,self.x,self.y)
+        self.transmit(self.x,self.y,self.x,self.y,0)
         
     """ Change the state of the pen, If the pen is down then the turtle will
         not draw when it moves. """
     def pendown(self):
         self.drawState = 0
-        self.transmit(self.x,self.y,self.x,self.y)
+        self.transmit(self.x,self.y,self.x,self.y,0)
     
     """ Change the size of the line drawn by the turtle to the parameter size. """
     def pensize(self, size):
         self.size = size;
-        self.transmit(self.x,self.y,self.x,self.y)
+        self.transmit(self.x,self.y,self.x,self.y,0)
         
     """ Change the color of the line drawn by the turtle to the parameter color. """
     def pencolor(self, color):
         self.lineColor=self.color[color]
-        self.transmit(self.x,self.y,self.x,self.y)
+        self.transmit(self.x,self.y,self.x,self.y,0)
         
     #FIXME: dosen't do anything
     def circle(self, radius):

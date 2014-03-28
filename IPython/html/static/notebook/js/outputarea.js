@@ -642,7 +642,7 @@ var IPython = (function (IPython) {
 		
 			var c = document.createElement('script');
 			c.type = '/text/javascript';
-			c.src = '/static/notebook/js/mypaper.js';
+			c.src = '/static/notebook/js/iturtle.js';
 			c.canvas = 'canvas1';
 			c.data;
 			toinsert.append(c);

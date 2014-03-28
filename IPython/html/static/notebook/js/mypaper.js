@@ -46,8 +46,13 @@
 	var getGoToAngle = true;
 	var oldAngle = turtleAngle;
 	 //Get the events from output area.
-	var myEvents = ($(".myString")).text();
+	//var myEvents = ($(".myString")).text();
+	//myEvents = myEvents.split(" ");
+	
+	var myEvents = IPython.turtleCommands;
 	myEvents = myEvents.split(" ");
+	
+	
 	 //list of events
 	var eventList = [];
 	 //create events, push them into list...

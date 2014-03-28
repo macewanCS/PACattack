@@ -588,15 +588,74 @@ var IPython = (function (IPython) {
 
 	    //append the turtle mimetype
     OutputArea.prototype.append_turtle = function (cmd, md, element) {
+        
         var type = 'turtle';
         var toinsert = this.create_output_subarea(md, "output_turtle", type);
+		//alert("got in mime type func");
 		
-		//comment out as this will not be in future implementation
-		//toinsert.append($("<pre/>").html(cmd));
+		
+		if (!IPython.hasOwnProperty("timerActive")) {
+			//alert ("new timeerActive create");
+			IPython.timerActive = 1;
+			startTimer(md, this, element);
+			IPython.turtleCommands = "";
+			IPython.turtleCommands = cmd;
+		} else {	
+			if (IPython.timerActive == 1)
+				//alert ("more than one command, appending to cmd");
+				IPython.turtleCommands += cmd;
+		}
 
-        element.append(toinsert);
+        
     };
 
+	function startTimer (md, who, element){
+		//set timeout
+		var myTime = setInterval(function() {
+			clearTimeout(myTime);
+			delete IPython.timerActive;
+			//create scripts and canvas
+			//alert("now we create a canvas, cmd string is " + IPython.turtleCommands);
+			//strip cmd of ,
+			if (IPython.hasOwnProperty("turtleCommands")){
+				var type = 'turtle';
+				var toinsert = who.create_output_subarea(md, "output_turtle", type);
+				var turtleCommands = IPython.turtleCommands;
+				turtleCommands = turtleCommands.replace(new RegExp(", ", "g"), "");
+				turtleCommands = turtleCommands.replace(new RegExp(",", "g"), " ");
+				toinsert.append($("<pre/>").html("Turtle commands are " + turtleCommands));
+			
+				IPython.turtleCommands = turtleCommands;
+
+				var canvas = document.createElement('canvas');
+				canvas.id = 'canvas1';
+				canvas.width = 600;
+				canvas.height = 400;
+				canvas.style.border = "1px solid black"; 
+				canvas.resize;
+
+				var e = document.createElement('script');
+				e.type = '/text/javascript';
+				e.src = '/static/notebook/js/paper.js';
+				toinsert.append(e); 
+		
+				var c = document.createElement('script');
+				c.type = '/text/javascript';
+				c.src = '/static/notebook/js/mypaper.js';
+				c.canvas = 'canvas1';
+				c.data;
+				toinsert.append(c);
+	
+				toinsert.append(canvas);
+		
+			
+			
+				element.append(toinsert);
+
+			}
+		}, 3000);
+
+	}
 
     OutputArea.prototype.append_text = function (data, md, element, extra_class) {
         var type = 'text/plain';
@@ -609,9 +668,10 @@ var IPython = (function (IPython) {
             toinsert.addClass(extra_class);
         }    
         
-		//before
-		//toinsert.append($("<pre/>").html(data));
-		var turtlecmds = "";
+		toinsert.append($("<pre/>").html(data));
+		
+		
+		/*var turtlecmds = "";
         //parse through data and create a turtlecmds string
 		if ((data.search("PAC")) > -1) {
 			var lines = data.split(/\r\n|\r|\n/);
@@ -661,7 +721,7 @@ var IPython = (function (IPython) {
 		}
 		//toinsert.append($("<div/>").html(myscript));
 
-		//}
+		//}*/
 		
         
         

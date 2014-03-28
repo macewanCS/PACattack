@@ -47,14 +47,10 @@ class pacturtle:
 		endy = endy #y goes down
 		endx = self.startx - endx
 		endy = self.starty + endy
-		print "PAC: line",endx,endy
-		command = "line ",endx," ",endy
+		#print "PAC: line",endx,endy
+		command = ",line",endx," ",endy
 		display_data = []
-		#display_data.append(('pacturtle.forward', {'turtle':command}))
-		#at this point there would be something like:
-		#for tag, disp_d in display_data:
-			#publish_display_data(tag, disp_d)
-		#publish_display_data('pacturtle.forward', {'turtle':command})
+		publish_display_data('pacturtle.forward', {'turtle':command})
 		
 		#set up new startpoints
 		self.startx = endx
@@ -70,13 +66,8 @@ class pacturtle:
 		if (speed > 10):
 			speed = 10
 		print "PAC: speed", speed
-		#command = "speed ",speed
-		display_data = []
-		#display_data.append(('pacturtle.speed', {'turtle':command}))
-		#at this point there would be something like:
-		#for tag, disp_d in display_data:
-			#publish_display_data(tag, disp_d)
-		#publish_display_data('pacturtle.speed', {'turtle':command})
+		command = "speed",speed
+		publish_display_data('pacturtle.speed', {'turtle':command})
 		self.turtleSpeed = speed
 		
 	def backward(self, distance):
@@ -97,14 +88,9 @@ class pacturtle:
 		endx = self.startx - endx
 		endy = self.starty + endy
 		
-		print "PAC: backward", endx , endy 
-		#command = "backward ",endx, " ", endy
-		#display_data = []
-		#display_data.append(('pacturtle.speed', {'turtle':command}))
-		#at this point there would be something like:
-		#for tag, disp_d in display_data:
-			#publish_display_data(tag, disp_d)
-		#publish_display_data('pacturtle.backward', {'turtle':command})
+		#print "PAC: backward", endx , endy 
+		command = ",backward",endx, " ", endy
+		publish_display_data('pacturtle.backward', {'turtle':command})
 		#set up new startpoints
 		self.startx = endx
 		self.starty = endy
@@ -115,54 +101,54 @@ class pacturtle:
 		"""
 		Rotate the turtle clockwise by the parameter angle measured in Euler angles.
 		""" 
-		print "PAC: rotate",angle
-		#command = "rotate ",angle
-		#publish_display_data('pacturtle.rotate', {'turtle':command})
+		#print "PAC: rotate",angle
+		command = ",rotate",angle
+		publish_display_data('pacturtle.rotate', {'turtle':command})
 		self.turtleAngle = self.turtleAngle + angle
 		
 	def left(self, angle):
 		""" 
     	Rotate the turtle clockwise by the parameter angle measured in Euler angles.
      	"""
-		print "PAC: rotate", -angle
-		#command = "rotate ",angle
-		#publish_display_data('pacturtle.rotate', {'turtle':command})
+		#print "PAC: rotate", -angle
+		command = ",rotate",-angle
+		publish_display_data('pacturtle.rotate', {'turtle':command})
 		self.turtleAngle = self.turtleAngle - angle
 	
 	def penup(self):
 		"""
 		Change the state of the pen, If the pen is up then the turtle will no longer draw when it moves.
 		"""
-		print "PAC: penStatus", 0
-		#command = "penStatus ",0
-		#publish_display_data('pacturtle.penup', {'turtle':command})
+		#print "PAC: penStatus", 0
+		command = ",penStatus",0
+		publish_display_data('pacturtle.penup', {'turtle':command})
 		self.penDrawing = 0
 		
 	def pendown(self):
 		"""
     	Change the state of the pen, If the pen is down then the turtle will not draw when it moves.
     	"""
-		print "PAC: penStatus", 1
-		#command = "penStatus ",1
-		#publish_display_data('pacturtle.pendown', {'turtle':command})
+		#print "PAC: penStatus", 1
+		command = ",penStatus",1
+		publish_display_data('pacturtle.pendown', {'turtle':command})
 		self.penStatus = 1
 	
 	def pensize(self, size):
 		"""
     	Change the size of the line drawn by the turtle to the parameter size
     	"""
-		print "PAC: penSize", size
-		#command = "penSize ",size
-		#publish_display_data('pacturtle.pensize', {'turtle':command})
+		#print "PAC: penSize", size
+		command = ",penSize",size
+		publish_display_data('pacturtle.pensize', {'turtle':command})
 		penSize = size;
 		
 	def pencolor(self, color):
 		"""
     	Change the color of the line drawn by the turtle to the parameter color.
     	"""
-		print "PAC: penColor", color
-		#command = "penColor ",color
-		#publish_display_data('pacturtle.pencolor', {'turtle':command})
+		#print "PAC: penColor", color
+		command = ",penColor",color
+		publish_display_data('pacturtle.pencolor', {'turtle':command})
 		penColor = color;
 		
 	def circle(self, radius):
@@ -222,7 +208,9 @@ class pacturtle:
 				myAngle = myAngle
 		self.startx = x
 		self.starty = y
-		print "PAC: goTo", x, y, myAngle
+		#print "PAC: goTo", x, y, myAngle
+		command = ",goto", x, y, myAngle
+		publish_display_data('pacturtle.rotate', {'turtle':command})
 		
 	def home(self):
 		self.goto(self.homex, self.homey)

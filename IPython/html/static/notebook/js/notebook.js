@@ -1412,6 +1412,9 @@ var IPython = (function (IPython) {
      * @method execute_cell
      */
     Notebook.prototype.execute_cell = function () {
+    	//clear turtle timeout
+    	delete IPython.timerActive;
+    
         // mode = shift, ctrl, alt
         var cell = this.get_selected_cell();
         var cell_index = this.find_cell_index(cell);

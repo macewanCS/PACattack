@@ -297,12 +297,13 @@
 	                        eventList[x].rotate = 0; //k one sec
 	                    }
 
-	                } else {
+	                } 
+					
+					else {
+						
 	                    // we are done rotating 
 	                    rasterAngle = newAngle;
-	                    alert("rasterAngle is " + rasterAngle);
-	                    alert("turtleAngle is " + turtleAngle);
-	                    getAngle = true; //need to get a new Angle next time
+	          		    getAngle = true; //need to get a new Angle next time
 	                    x++;
 	                }
 	            }
@@ -360,9 +361,17 @@
 
 	                penSize = eventList[x].penSize;
 
+					alert(penStatus);
 	                if (penStatus == 1) {
 	                    turtlePath.strokeWidth = penSize;
 	                }
+					
+					else {
+						alert("setting to 0");
+						turtlePath.strokeWidth = 0;
+
+					
+					}
 
 	                x++;
 
@@ -375,6 +384,8 @@
 	                // make new path for thickness change
 	                turtlePath = new paper.Path();
 
+					
+					
 	                //set color of stroke
 	                penColor = eventList[x].penColor;
 	                turtlePath.strokeColor = penColor;
@@ -382,7 +393,17 @@
 	                //set thickness
 	                turtlePath.add(new paper.Point(Number(xcoord), Number(ycoord)));
 
-	                turtlePath.strokeWidth = penSize;
+					if (penStatus == 1) {
+	                    turtlePath.strokeWidth = penSize;
+	                }
+					
+					else {
+					
+						turtlePath.strokeWidth = 0;
+
+					
+					}
+
 	                x++;
 
 	            }
@@ -396,26 +417,27 @@
 					
 	                //if pen should be drawing
 	                if (eventList[x].toggle == 1) {
-						raster = new paper.Raster('/static/notebook/js/turtle.png');
-						raster.rotate(turtleAngle);
+						//raster = new paper.Raster('/static/notebook/js/turtle.png');
+						//raster.rotate(turtleAngle);
 	                    // make new path!
 	                    turtlePath = new paper.Path();
 	                    turtlePath.add(new paper.Point(Number(xcoord), Number(ycoord)));
 
-	                    //turn size to 0 as we are not drawing line
 	                    turtlePath.strokeWidth = penSize;
 	                    //set color of stroke
 	                    turtlePath.strokeColor = penColor;
+						penStatus = 1;
+
 	                    x++;
 
 
 	                }
 	                //if pen shouldnt be drawing
 	                else {
-
+						penStatus = 0;
 	                    // make new path!
 	                    turtlePath = new paper.Path();
-
+	
 	                    turtlePath.add(new paper.Point(Number(xcoord), Number(ycoord)));
 
 	                    //set size

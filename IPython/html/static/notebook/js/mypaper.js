@@ -4,6 +4,13 @@
 
 	 // Create a raster item using the image tag with id='raster'
 	var raster = new paper.Raster('/static/notebook/js/turtle.png');
+	var help = new paper.Raster('/static/notebook/js/qmark.png');
+	help.scale(0.2);
+	help.position.x=10;
+	help.position.y=10;
+	help.onMouseDown = function (event){
+		alert("Hello and welcome to the pacAttack turtle project. Try help(pacattack) to see function to see what methods are available and what they do.");
+		}
 	 // home coordinates
 	 //will adjust this approprietly to center
 	var xhome = 300;

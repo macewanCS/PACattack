@@ -5,6 +5,7 @@
 	 // Create a raster item using the image tag with id='raster'
 	var raster = new paper.Raster('/static/notebook/js/turtle.png');
 	 // home coordinates
+	 //will adjust this approprietly to center
 	var xhome = 250;
 	var yhome = 250;
 	 // turtle coordinates (start at home)
@@ -263,20 +264,16 @@
 
 	                if (parseFloat(eventList[x].rotate) > 0) {
 	                    raster.rotate(speed); //rotate turtle image clockwise by speed
-	                    rasterAngle += speed;
-	                    //shouldnt newAngle be updated here?
+	                    rasterAngle += speed; //rasterAngle is pointing where raster is
 	                    turtleAngle = turtleAngle + speed; //update the actual angle
 	                    eventList[x].rotate = eventList[x].rotate - speed; //decrease angle by the amount weve rotated
-	                    //heres where we overshoot
-	                    //next we check if we overshot i heard some licking. caught my cat on the counter eating food.
+	                    
+	                    
 	                    if (eventList[x].rotate < 0) {
-
-
 	                        turtleAngle = newAngle; //this automatically SETS turtleAngle to newAngle
-	                        //now we want to set raster back to 0, then rotate it right by newAngle
-	                        raster.rotate(-rasterAngle); //now the raster should be facing left (0) at the end. 
-	                        //raster.rotate(newAngle); //this does the rotating part, were just telling rasterAngle what the image is pointat
-	                        //rasterAngle = newAngle;    //this part sho that uld set the raster rotate to our angle, not just 'rotate it b
+	                        raster.rotate(-rasterAngle); //rotate back to 0
+	                        raster.rotate(newAngle);
+	                        rasterAngle = newAngle;
 	                        eventList[x].rotate = 0; //k one sec
 	                    }
 
@@ -294,14 +291,17 @@
 
 	                        turtleAngle = newAngle; //this automatically SETS turtleAngle to newAngle
 	                        //now we want to set raster back to 0, then rotate it right by newAngle
-	                        raster.rotate(rasterAngle);
-	                        //raster.rotate(newAngle); //this does the rotating part, were just telling rasterAngle what the image is pointat
-	                        //rasterAngle = newAngle;    //this part sho that uld set the raster rotate to our angle, not just 'rotate it b
+	                        raster.rotate(rasterAngle); //
+	                        raster.rotate(turtleAngle); //this does the rotating part, were just telling rasterAngle what the image is pointat
+	                        rasterAngle = newAngle;    //this part sho that uld set the raster rotate to our angle, not just 'rotate it b
 	                        eventList[x].rotate = 0; //k one sec
 	                    }
 
 	                } else {
 	                    // we are done rotating 
+	                    rasterAngle = newAngle;
+	                    alert("rasterAngle is " + rasterAngle);
+	                    alert("turtleAngle is " + turtleAngle);
 	                    getAngle = true; //need to get a new Angle next time
 	                    x++;
 	                }
@@ -393,10 +393,11 @@
 	            if (eventList[x].command == "penStatus") {
 
 	                // change pen status (penup or pendown)
-
-	                //if pen is on
+					
+	                //if pen should be drawing
 	                if (eventList[x].toggle == 1) {
-
+						raster = new paper.Raster('/static/notebook/js/turtle.png');
+						raster.rotate(turtleAngle);
 	                    // make new path!
 	                    turtlePath = new paper.Path();
 	                    turtlePath.add(new paper.Point(Number(xcoord), Number(ycoord)));
@@ -409,7 +410,7 @@
 
 
 	                }
-	                //if pen is off
+	                //if pen shouldnt be drawing
 	                else {
 
 	                    // make new path!

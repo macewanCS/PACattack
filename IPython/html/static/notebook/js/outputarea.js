@@ -588,15 +588,39 @@ var IPython = (function (IPython) {
 
 	    //append the turtle mimetype
     OutputArea.prototype.append_turtle = function (cmd, md, element) {
+        
         var type = 'turtle';
         var toinsert = this.create_output_subarea(md, "output_turtle", type);
+		alert("got in mime type func");
 		
-		//comment out as this will not be in future implementation
-		//toinsert.append($("<pre/>").html(cmd));
+		
+		if (!IPython.hasOwnProperty("timerActive")) {
+			alert ("new timeerActive create");
+			IPython.timerActive = 1;
+			startTimer();
+			IPython.turtleCommands = "";
+			IPython.turtleCommands = cmd;
+		} else {	
+			if (IPython.timerActive == 1)
+				alert ("more than one command, appending to cmd");
+				IPython.turtleCommands += cmd;
+		}
 
         element.append(toinsert);
     };
 
+	function startTimer (){
+		//set timeout
+		var myTime = setInterval(function() {
+			clearTimeout(myTime);
+			delete IPython.timerActive;
+			//create scripts and canvas
+			alert("now we create a canvas, cmd string is " + IPython.turtleCommands);
+			
+
+		}, 3000);
+
+	}
 
     OutputArea.prototype.append_text = function (data, md, element, extra_class) {
         var type = 'text/plain';

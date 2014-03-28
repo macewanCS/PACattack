@@ -47,14 +47,14 @@ class pacturtle:
 		endy = endy #y goes down
 		endx = self.startx - endx
 		endy = self.starty + endy
-		print "PAC: line",endx,endy
+		#print "PAC: line",endx,endy
 		command = "line ",endx," ",endy
 		display_data = []
 		#display_data.append(('pacturtle.forward', {'turtle':command}))
 		#at this point there would be something like:
 		#for tag, disp_d in display_data:
 			#publish_display_data(tag, disp_d)
-		#publish_display_data('pacturtle.forward', {'turtle':command})
+		publish_display_data('pacturtle.forward', {'turtle':command})
 		
 		#set up new startpoints
 		self.startx = endx
@@ -97,7 +97,7 @@ class pacturtle:
 		endx = self.startx - endx
 		endy = self.starty + endy
 		
-		print "PAC: backward", endx , endy 
+		#print "PAC: backward", endx , endy 
 		#command = "backward ",endx, " ", endy
 		#display_data = []
 		#display_data.append(('pacturtle.speed', {'turtle':command}))

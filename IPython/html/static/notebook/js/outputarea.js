@@ -528,13 +528,15 @@ var IPython = (function (IPython) {
         'image/svg+xml',
         'image/png',
         'image/jpeg',
-        'text/plain'
+        'text/plain',
+        'turtle',
     ];
 
     OutputArea.safe_outputs = {
         'text/plain' : true,
         'image/png' : true,
-        'image/jpeg' : true
+        'image/jpeg' : true,
+        'turtle' : true
     };
     
     OutputArea.prototype.append_mime_type = function (json, element) {
@@ -582,6 +584,18 @@ var IPython = (function (IPython) {
             this._append_javascript_error(err, element);
         }
     };
+    
+
+	    //append the turtle mimetype
+    OutputArea.prototype.append_turtle = function (cmd, md, element) {
+        var type = 'turtle';
+        var toinsert = this.create_output_subarea(md, "output_turtle", type);
+		
+		//comment out as this will not be in future implementation
+		//toinsert.append($("<pre/>").html(cmd));
+
+        element.append(toinsert);
+    };
 
 
     OutputArea.prototype.append_text = function (data, md, element, extra_class) {
@@ -593,10 +607,10 @@ var IPython = (function (IPython) {
         data = utils.autoLinkUrls(data);
         if (extra_class){
             toinsert.addClass(extra_class);
-        }
+        }    
         
-        
-
+		//before
+		//toinsert.append($("<pre/>").html(data));
 		var turtlecmds = "";
         //parse through data and create a turtlecmds string
 		if ((data.search("PAC")) > -1) {
@@ -607,10 +621,6 @@ var IPython = (function (IPython) {
 				
 				}
 			}
-
-			//turtlecmds = oldData.replace(/\r?\n/g, " "); //remove all new lines
-			//turtlecmds = turtlecmds.replace(new RegExp("PAC: ", "g"), "");
-		
 			data = data.replace(/^.*PAC:.*$/mg, "");
 			data = data.replace(/^\s*\n/gm, "");
 			
@@ -630,9 +640,9 @@ var IPython = (function (IPython) {
 
 			var canvas = document.createElement('canvas');
 			canvas.id = 'canvas1';
-			canvas.width = 800;
-			canvas.height = 600;
-			canvas.style = "border:1px solid #000000;";
+			canvas.width = 600;
+			canvas.height = 400;
+			canvas.style.border = "1px solid black"; 
 			canvas.resize;
 
 			var e = document.createElement('script');
@@ -750,6 +760,7 @@ var IPython = (function (IPython) {
         "text/latex" : OutputArea.prototype.append_latex,
         "application/json" : OutputArea.prototype.append_json,
         "application/javascript" : OutputArea.prototype.append_javascript,
+        "turtle" : OutputArea.prototype.append_turtle,
     };
 
     OutputArea.prototype.append_raw_input = function (msg) {

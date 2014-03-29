@@ -48,7 +48,10 @@ class pacturtle:
 		endx = self.startx - endx
 		endy = self.starty + endy
 		#print "PAC: line",endx,endy
-		command = ",line",endx," ",endy
+		
+		stringx = str(endx);
+		stringy = str(endy);
+		command = " line " + stringx + " " + stringy
 		display_data = []
 		publish_display_data('pacturtle.forward', {'turtle':command})
 		
@@ -65,8 +68,9 @@ class pacturtle:
 		
 		if (speed > 10):
 			speed = 10
-		print "PAC: speed", speed
-		command = "speed",speed
+		#print "PAC: speed", speed
+		stringspeed = str(speed)
+		command = "speed " + stringspeed
 		publish_display_data('pacturtle.speed', {'turtle':command})
 		self.turtleSpeed = speed
 		
@@ -89,7 +93,9 @@ class pacturtle:
 		endy = self.starty + endy
 		
 		#print "PAC: backward", endx , endy 
-		command = ",backward",endx, " ", endy
+		stringx = str(endx);
+		stringy = str(endy);
+		command = " backward "+ stringx + " " + stringy
 		publish_display_data('pacturtle.backward', {'turtle':command})
 		#set up new startpoints
 		self.startx = endx
@@ -102,7 +108,8 @@ class pacturtle:
 		Rotate the turtle clockwise by the parameter angle measured in Euler angles.
 		""" 
 		#print "PAC: rotate",angle
-		command = ",rotate",angle
+		stringangle = str(angle)
+		command = " rotate " + stringangle
 		publish_display_data('pacturtle.rotate', {'turtle':command})
 		self.turtleAngle = self.turtleAngle + angle
 		
@@ -111,7 +118,8 @@ class pacturtle:
     	Rotate the turtle clockwise by the parameter angle measured in Euler angles.
      	"""
 		#print "PAC: rotate", -angle
-		command = ",rotate",-angle
+		strangle = "-" + str(angle)
+		command = " rotate " + strangle
 		publish_display_data('pacturtle.rotate', {'turtle':command})
 		self.turtleAngle = self.turtleAngle - angle
 	
@@ -120,7 +128,8 @@ class pacturtle:
 		Change the state of the pen, If the pen is up then the turtle will no longer draw when it moves.
 		"""
 		#print "PAC: penStatus", 0
-		command = ",penStatus",0
+		strzero = str(0);
+		command = " penStatus " + strzero
 		publish_display_data('pacturtle.penup', {'turtle':command})
 		self.penDrawing = 0
 		
@@ -129,7 +138,8 @@ class pacturtle:
     	Change the state of the pen, If the pen is down then the turtle will not draw when it moves.
     	"""
 		#print "PAC: penStatus", 1
-		command = ",penStatus",1
+		strone = str(1)
+		command = " penStatus " + strone
 		publish_display_data('pacturtle.pendown', {'turtle':command})
 		self.penStatus = 1
 	
@@ -138,7 +148,8 @@ class pacturtle:
     	Change the size of the line drawn by the turtle to the parameter size
     	"""
 		#print "PAC: penSize", size
-		command = ",penSize",size
+		strsize = str(size);
+		command = " penSize " + strsize
 		publish_display_data('pacturtle.pensize', {'turtle':command})
 		penSize = size;
 		
@@ -147,7 +158,7 @@ class pacturtle:
     	Change the color of the line drawn by the turtle to the parameter color.
     	"""
 		#print "PAC: penColor", color
-		command = ",penColor",color
+		command = " penColor " + color
 		publish_display_data('pacturtle.pencolor', {'turtle':command})
 		penColor = color;
 		
@@ -209,8 +220,11 @@ class pacturtle:
 		self.startx = x
 		self.starty = y
 		#print "PAC: goTo", x, y, myAngle
-		command = ",goto", x, y, myAngle
-		publish_display_data('pacturtle.rotate', {'turtle':command})
+		strx = str(x)
+		stry = str(y)
+		strangle = str(myAngle)
+		command = " goTo " + strx + " " + stry + " " + strangle
+		publish_display_data('pacturtle.goto', {'turtle':command})
 		
 	def home(self):
 		self.goto(self.homex, self.homey)

@@ -303,7 +303,7 @@
 
 	                        turtleAngle = newAngle; //this automatically SETS turtleAngle to newAngle
 	                        //now we want to set raster back to 0, then rotate it right by newAngle
-	                        raster.rotate(rasterAngle); //
+	                        raster.rotate(-rasterAngle); //
 	                        raster.rotate(turtleAngle); //this does the rotating part, were just telling rasterAngle what the image is pointat
 	                        rasterAngle = newAngle;    //this part sho that uld set the raster rotate to our angle, not just 'rotate it b
 	                        eventList[x].rotate = 0; //k one sec

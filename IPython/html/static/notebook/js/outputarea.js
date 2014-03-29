@@ -618,12 +618,14 @@ var IPython = (function (IPython) {
 			//alert("now we create a canvas, cmd string is " + IPython.turtleCommands);
 			//strip cmd of ,
 			if (IPython.hasOwnProperty("turtleCommands")){
+				
+			
+			
 				var type = 'turtle';
 				var toinsert = who.create_output_subarea(md, "output_turtle", type);
 				var turtleCommands = IPython.turtleCommands;
-				turtleCommands = turtleCommands.replace(new RegExp(", ", "g"), "");
-				turtleCommands = turtleCommands.replace(new RegExp(",", "g"), " ");
-				toinsert.append($("<pre/>").html("Turtle commands are " + turtleCommands));
+				
+				//toinsert.append($("<pre/>").html("Turtle commands are " + turtleCommands));
 			
 				IPython.turtleCommands = turtleCommands;
 
@@ -653,7 +655,7 @@ var IPython = (function (IPython) {
 				element.append(toinsert);
 
 			}
-		}, 3000);
+		}, 1000);
 
 	}
 

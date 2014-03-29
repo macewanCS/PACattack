@@ -1424,6 +1424,15 @@ var IPython = (function (IPython) {
         cell.focus_cell();
         this.set_dirty(true);
     }
+	
+	 /**
+     * 
+     * 
+     * 
+     */
+    Notebook.prototype.turtle_help = function () {
+		window.open("http://www.google.com");
+    }
 
     /**
      * Execute or render cell outputs and insert a new cell below.

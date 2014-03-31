@@ -595,6 +595,8 @@ var IPython = (function (IPython) {
 		
 		
 		if (!IPython.hasOwnProperty("timerActive")) {
+			IPython.turtleRunning = false;
+			IPython.turtleRunning = true;
 			//alert ("new timeerActive create");
 			IPython.timerActive = 1;
 			startTimer(md, this, element);
@@ -615,32 +617,21 @@ var IPython = (function (IPython) {
 			clearTimeout(myTime);
 			delete IPython.timerActive;
 			//create scripts and canvas
-			//alert("now we create a canvas, cmd string is " + IPython.turtleCommands);
-			//strip cmd of ,
 			if (IPython.hasOwnProperty("turtleCommands")){
-				
-			
-			
 				var type = 'turtle';
 				var toinsert = who.create_output_subarea(md, "output_turtle", type);
 				var turtleCommands = IPython.turtleCommands;
-				
-				//toinsert.append($("<pre/>").html("Turtle commands are " + turtleCommands));
-			
 				IPython.turtleCommands = turtleCommands;
-
 				var canvas = document.createElement('canvas');
 				canvas.id = 'canvas1';
 				canvas.width = 600;
 				canvas.height = 400;
 				canvas.style.border = "1px solid black"; 
 				canvas.resize;
-
 				var e = document.createElement('script');
 				e.type = '/text/javascript';
 				e.src = '/static/notebook/js/paper.js';
 				toinsert.append(e); 
-		
 				var c = document.createElement('script');
 				c.type = '/text/javascript';
 				c.src = '/static/notebook/js/mypaper.js';
@@ -649,8 +640,7 @@ var IPython = (function (IPython) {
 				toinsert.append(c);
 	
 				toinsert.append(canvas);
-		
-			
+	
 			
 				element.append(toinsert);
 

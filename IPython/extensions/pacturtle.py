@@ -70,7 +70,7 @@ class pacturtle:
 			speed = 10
 		#print "PAC: speed", speed
 		stringspeed = str(speed)
-		command = "speed " + stringspeed
+		command = " speed " + stringspeed
 		publish_display_data('pacturtle.speed', {'turtle':command})
 		self.turtleSpeed = speed
 		

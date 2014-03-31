@@ -16,9 +16,6 @@ from IPython.utils.py3compat import (str_to_unicode, unicode_to_str, PY3,
                                       unicode_type)
 from IPython.utils.text import dedent
 
-# Allow publish_display_data to be overridden for
-# testing purposes.
-
 class pacturtle:
 	display_data = [];
 	
@@ -47,7 +44,6 @@ class pacturtle:
 		endy = endy #y goes down
 		endx = self.startx - endx
 		endy = self.starty + endy
-		#print "PAC: line",endx,endy
 		
 		stringx = str(endx);
 		stringy = str(endy);
@@ -58,7 +54,6 @@ class pacturtle:
 		#set up new startpoints
 		self.startx = endx
 		self.starty = endy
-		#reset angle
 		self.turtleAngle = -self.turtleAngle
 		
 	def speed(self, speed):
@@ -68,9 +63,8 @@ class pacturtle:
 		
 		if (speed > 10):
 			speed = 10
-		#print "PAC: speed", speed
 		stringspeed = str(speed)
-		command = "speed " + stringspeed
+		command = " speed " + stringspeed
 		publish_display_data('pacturtle.speed', {'turtle':command})
 		self.turtleSpeed = speed
 		
@@ -91,8 +85,7 @@ class pacturtle:
 	
 		endx = self.startx - endx
 		endy = self.starty + endy
-		
-		#print "PAC: backward", endx , endy 
+		 
 		stringx = str(endx);
 		stringy = str(endy);
 		command = " backward "+ stringx + " " + stringy
@@ -107,7 +100,6 @@ class pacturtle:
 		"""
 		Rotate the turtle clockwise by the parameter angle measured in Euler angles.
 		""" 
-		#print "PAC: rotate",angle
 		stringangle = str(angle)
 		command = " rotate " + stringangle
 		publish_display_data('pacturtle.rotate', {'turtle':command})
@@ -117,7 +109,6 @@ class pacturtle:
 		""" 
     	Rotate the turtle clockwise by the parameter angle measured in Euler angles.
      	"""
-		#print "PAC: rotate", -angle
 		strangle = "-" + str(angle)
 		command = " rotate " + strangle
 		publish_display_data('pacturtle.rotate', {'turtle':command})
@@ -127,7 +118,6 @@ class pacturtle:
 		"""
 		Change the state of the pen, If the pen is up then the turtle will no longer draw when it moves.
 		"""
-		#print "PAC: penStatus", 0
 		strzero = str(0);
 		command = " penStatus " + strzero
 		publish_display_data('pacturtle.penup', {'turtle':command})
@@ -137,7 +127,6 @@ class pacturtle:
 		"""
     	Change the state of the pen, If the pen is down then the turtle will not draw when it moves.
     	"""
-		#print "PAC: penStatus", 1
 		strone = str(1)
 		command = " penStatus " + strone
 		publish_display_data('pacturtle.pendown', {'turtle':command})
@@ -147,7 +136,6 @@ class pacturtle:
 		"""
     	Change the size of the line drawn by the turtle to the parameter size
     	"""
-		#print "PAC: penSize", size
 		strsize = str(size);
 		command = " penSize " + strsize
 		publish_display_data('pacturtle.pensize', {'turtle':command})
@@ -157,7 +145,6 @@ class pacturtle:
 		"""
     	Change the color of the line drawn by the turtle to the parameter color.
     	"""
-		#print "PAC: penColor", color
 		command = " penColor " + color
 		publish_display_data('pacturtle.pencolor', {'turtle':command})
 		penColor = color;
@@ -183,8 +170,6 @@ class pacturtle:
 		"""
     	Moves the turtle to the point (x,y) specified by parameters
     	"""
-		#calculate the angle...somehow
-        #CHANGE START TO CURRENT
 		#dif of x
 		difx = self.startx - x
 		#dif of y
@@ -204,22 +189,17 @@ class pacturtle:
 			difx = abs(difx)
 			dify = abs(dify)
 			myAngle = math.degrees(math.atan2(dify,difx))
-			#check the four quadrants
+			# check the four quadrants
 			if ((self.starty - y) > 0 and (self.startx - x) < 0):
-				#print ("in quadrant 2")
 				myAngle = 180 - myAngle
 			elif ((self.starty - y) < 0 and (self.startx - x) < 0):
-				#print ("in quadrant 3")
 				myAngle = 180 + myAngle
 			elif ((self.starty - y) < 0 and (self.startx - x) > 0):
-				#print ("in quadrant 4")
 				myAngle = 360 - myAngle
 			else:
-				#print ("in quadrant1")
 				myAngle = myAngle
 		self.startx = x
 		self.starty = y
-		#print "PAC: goTo", x, y, myAngle
 		strx = str(x)
 		stry = str(y)
 		strangle = str(myAngle)

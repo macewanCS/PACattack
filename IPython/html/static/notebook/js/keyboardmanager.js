@@ -532,6 +532,16 @@ var IPython = (function (IPython) {
                 return false;
             }
         },
+        'p' : {
+            help    : 'pause the turtle',
+            help_index : 'ek',
+            handler : function (event) {
+                if (IPython.turtleRunning == true){
+                IPython.turtleRunning=false;
+                } else IPython.turtleRunning = true;
+                return false;
+            }
+        },
     }
 
 

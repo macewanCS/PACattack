@@ -586,23 +586,22 @@ var IPython = (function (IPython) {
     };
     
 
-	    //append the turtle mimetype
+	// append the turtle mimetype
     OutputArea.prototype.append_turtle = function (cmd, md, element) {
-        
         var type = 'turtle';
         var toinsert = this.create_output_subarea(md, "output_turtle", type);
-		//alert("got in mime type func");
-		
-		
 		if (!IPython.hasOwnProperty("timerActive")) {
-			//alert ("new timeerActive create");
+			// if there is not timer created, new command
+			// inserting commands into IPythonturtleCommands
+			IPython.turtleRunning = false;
+			IPython.turtleRunning = true;
 			IPython.timerActive = 1;
 			startTimer(md, this, element);
 			IPython.turtleCommands = "";
 			IPython.turtleCommands = cmd;
 		} else {	
+			// timer started, append commands to IPython.turtleCommands
 			if (IPython.timerActive == 1)
-				//alert ("more than one command, appending to cmd");
 				IPython.turtleCommands += cmd;
 		}
 
@@ -610,50 +609,36 @@ var IPython = (function (IPython) {
     };
 
 	function startTimer (md, who, element){
-		//set timeout
+		// set timeout
 		var myTime = setInterval(function() {
+			// timer ended, done adding commands to IPython.turtleCommands
+			// create the turtle canvas and run mypaper.js in outputarea
 			clearTimeout(myTime);
 			delete IPython.timerActive;
 			//create scripts and canvas
-			//alert("now we create a canvas, cmd string is " + IPython.turtleCommands);
-			//strip cmd of ,
 			if (IPython.hasOwnProperty("turtleCommands")){
-				
-			
-			
 				var type = 'turtle';
 				var toinsert = who.create_output_subarea(md, "output_turtle", type);
 				var turtleCommands = IPython.turtleCommands;
-				
-				//toinsert.append($("<pre/>").html("Turtle commands are " + turtleCommands));
-			
 				IPython.turtleCommands = turtleCommands;
-
 				var canvas = document.createElement('canvas');
 				canvas.id = 'canvas1';
 				canvas.width = 600;
 				canvas.height = 400;
 				canvas.style.border = "1px solid black"; 
 				canvas.resize;
-
 				var e = document.createElement('script');
 				e.type = '/text/javascript';
 				e.src = '/static/notebook/js/paper.js';
 				toinsert.append(e); 
-		
 				var c = document.createElement('script');
 				c.type = '/text/javascript';
 				c.src = '/static/notebook/js/mypaper.js';
 				c.canvas = 'canvas1';
 				c.data;
 				toinsert.append(c);
-	
 				toinsert.append(canvas);
-		
-			
-			
 				element.append(toinsert);
-
 			}
 		}, 1000);
 
@@ -669,73 +654,7 @@ var IPython = (function (IPython) {
         if (extra_class){
             toinsert.addClass(extra_class);
         }    
-        
-		toinsert.append($("<pre/>").html(data));
-		
-		
-		/*var turtlecmds = "";
-        //parse through data and create a turtlecmds string
-		if ((data.search("PAC")) > -1) {
-			var lines = data.split(/\r\n|\r|\n/);
-			for (var i = 0;i < lines.length;i++){
-				if (lines[i].search("PAC") > -1) { //check if that line contains pac
-					turtlecmds = turtlecmds + lines[i].replace(new RegExp("PAC:", "g"), "");
-				
-				}
-			}
-			data = data.replace(/^.*PAC:.*$/mg, "");
-			data = data.replace(/^\s*\n/gm, "");
-			
-			
-			toinsert.append($("<pre/>").html("Turtle command string is \n" + turtlecmds));
-		}
-		
-		toinsert.append($("<pre/>").html(data));
-		
-		//string to pass to mypaper.js
-		//if we have turtlecmds
-		
-		if (turtlecmds.length > 0){
-			var test = $('<div\>').addClass('myString');
-			test.append(turtlecmds).hide();
-			toinsert.append(test);
-
-			var canvas = document.createElement('canvas');
-			canvas.id = 'canvas1';
-			canvas.width = 600;
-			canvas.height = 400;
-			canvas.style.border = "1px solid black"; 
-			canvas.resize;
-
-			var e = document.createElement('script');
-			e.type = '/text/javascript';
-			e.src = '/static/notebook/js/paper.js';
-			toinsert.append(e); 
-		
-			var c = document.createElement('script');
-			c.type = '/text/javascript';
-			c.src = '/static/notebook/js/mypaper.js';
-			c.canvas = 'canvas1';
-			c.data;
-			toinsert.append(c);
-	
-			toinsert.append(canvas);
-		}
-		//toinsert.append($("<div/>").html(myscript));
-
-		//}*/
-		
-        
-        
-     	//line count feature, when countthelines present
-     	/*
-        if (data.search("countthelines") > 0) {
-    		var lines = data.split(/\r\n|\r|\n/);
-            var linedata = "Number of Lines: " + (lines.length-1);
-        	toinsert.append($("<pre/>").html(linedata));
-        }   */
-        
-        
+		toinsert.append($("<pre/>").html(data)); 
         element.append(toinsert);
     };
 

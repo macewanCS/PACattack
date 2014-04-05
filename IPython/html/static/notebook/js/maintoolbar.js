@@ -131,6 +131,36 @@ var IPython = (function (IPython) {
                         }
                 }
             ],'turtle_power');
+			
+			this.add_buttons_group([
+                {
+                    id : 'cowabunga',
+                    label : 'Pause Turtle',
+                    icon : 'icon-bug',
+                    callback : function () {
+                        turtle_pause();
+						}
+                }
+            ],'cowabunga');
+			
+			this.add_buttons_group([
+                {
+                    id : 'radical_dude',
+                    label : 'Andrew Button 1',
+                    icon : 'icon-bug',
+                    callback : function () {
+							ak_button1();
+                        }
+                },
+                {
+                    id : 'pizza',
+                    label : 'Andrew Button 2',
+                    icon : 'icon-anchor',
+                    callback : function () {
+                        ak_button2();
+                        }
+                }
+            ],'Donatello');
     };
 
     MainToolBar.prototype.add_celltype_list = function () {

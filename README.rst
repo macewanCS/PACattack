@@ -1,3 +1,31 @@
+===============================
+PACAttack IPython with Turtle
+===============================
+
+Introduction
+============
+This is a fork of the IPython Notebook found at: https://github.com/ipython/ipython. 
+For this project we created a Turtle module to be used in the IPython Notebook. 
+This was meant to mimic the Turtle module from Python.
+
+Using the Turtle Module
+=======================
+To use the turtle you can use one of our examples. Copy and paste the following
+code into a notebook::
+
+   import pacturtle 
+   T = pacturtle.pacturtle() 
+   T.speed(10)
+   T.pensize(3)
+   T.backward(100)
+   T.right(30)
+   T.forward(200)
+   T.pencolor("green")
+   T.forward(100)
+
+A GitHub Page is coming soon with more information.
+
+
 ===========================================
  IPython: Productive Interactive Computing
 ===========================================

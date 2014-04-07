@@ -1431,7 +1431,7 @@ var IPython = (function (IPython) {
      * 
      */
     Notebook.prototype.turtle_help = function () {
-		window.open("http://www.google.com");
+		window.open('/static/notebook/js/helppage.html');
     }
 
     /**

@@ -60,9 +60,6 @@ class pacturtle:
 		"""
 		Setter for the speed that the turtle animates.
 		"""
-		
-		if (speed > 10):
-			speed = 10
 		stringspeed = str(speed)
 		command = " speed " + stringspeed
 		publish_display_data('pacturtle.speed', {'turtle':command})
@@ -153,7 +150,7 @@ class pacturtle:
 		"""
     	Draws a circle with a radius of the given parameter
     	"""
-		for x in range(0, 360):
+		for x in range(0, 362):
 			self.forward(2*math.pi*radius/360.0)
 			self.right(1)
 	

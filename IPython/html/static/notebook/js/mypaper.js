@@ -153,6 +153,10 @@ for (index = 0; index < myEvents.length; ++index) {
         eventList.push(event);
     }
 }
+
+
+window.scrollTo(0, document.body.scrollHeight);
+
 var x = 0; // event index
 // every frame execute current command at index x in eventList
 // increment x if done current command
@@ -560,3 +564,4 @@ paper.view.onFrame = function (event) {
         pauseRaster.opacity = 1;
     }
 }
+

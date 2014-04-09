@@ -23,7 +23,7 @@ code into a notebook::
    T.pencolor("green")
    T.forward(100)
 
-A GitHub Page is coming soon with more information.
+More information about this project can be found at http://macewancmpt395.github.io/PACattack/.
 
 
 ===========================================

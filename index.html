@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>PACAttack by macewanCMPT395</title>
+    <title>PACAttack Turtle by macewanCMPT395</title>
 
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
@@ -16,8 +16,8 @@
   <body>
     <div class="wrapper">
       <header>
-        <h1 class="header">PACAttack</h1>
-        <p class="header">Turtling with IPython</p>
+        <h1 class="header">PACAttack Turtle</h1>
+        <p class="header">Integrating a turtle module within IPython.</p>
 
         <ul>
           <li class="download"><a class="buttons" href="https://github.com/macewanCMPT395/PACattack/zipball/master">Download ZIP</a></li>
@@ -31,36 +31,79 @@
       </header>
       <section>
         <h3>
-<a name="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages"><span class="octicon octicon-link"></span></a>Welcome to GitHub Pages.</h3>
+<a name="ipython-notebook-turtle-module" class="anchor" href="#ipython-notebook-turtle-module"><span class="octicon octicon-link"></span></a>IPython Notebook Turtle Module</h3>
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+<p>For this project we created a Turtle module to be used in the IPython Notebook. This was meant to mimic the Turtle module from Python. The IPython notebook is an interactive environment where the user can write Python code within their browser, without needed Python installed in their computer. </p>
 
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
+<p>The Turtle module is a module used for drawing shapes. The user controls the turtle with simple commands, such as moving forward, rotating, and putting the pen down or up. If the pen is down and the turtle is moving, it will draw a line under it's path. </p>
+
+<h3>
+<a name="uses-for-the-turtle-module" class="anchor" href="#uses-for-the-turtle-module"><span class="octicon octicon-link"></span></a>Uses for the Turtle Module</h3>
+
+<p>Using the turtle is simple, and the results of coding actions are very visible. This makes it a great way to introduce programming to both children and adults. The turtle module is a great learning tool. </p>
+
+<p>Because it is in the browser, a teacher can easily teach this to the entire class. </p>
+
+<p>By inputting the following commands into a new notebook page, the turtle can be easily manipulated:</p>
+
+<pre><code>import pacturtle 
+T = pacturtle.pacturtle() 
+T.speed(7) 
+T.right(33) 
+T.pensize(4) 
+T.forward(70) 
+T.left(55) 
+T.pencolor("blue") 
+T.backward(100) 
 </code></pre>
 
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+<p><img src="http://127.0.0.1:8890/static/notebook/js/example.png" alt=""><strong>Figure 1:</strong> An example of how to use the turtle module. </p>
 
 <h3>
-<a name="designer-templates" class="anchor" href="#designer-templates"><span class="octicon octicon-link"></span></a>Designer Templates</h3>
+<a name="installation-instructions" class="anchor" href="#installation-instructions"><span class="octicon octicon-link"></span></a>Installation Instructions</h3>
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
+<p><strong><em>For Mac:</em></strong></p>
+
+<p>Step 1: Open the terminal. This can be done by clicking the magnifying glass in the top right corner of your screen and typing 'terminal'. You can also find the terminal application in Applications.</p>
+
+<p>Step 2: You will need to go to the directory where you want the IPython Notebook stored. Change into that directory. (Hint: You can create a directory by typing <em>mkdir nameofdirectory</em> and then to move into that directory within the terminal type <em>cd nameofdirectory</em>).</p>
+
+<p>Step 3: Within the directory and type <em>git clone <a href="https://github.com/macewanCMPT395/PACattack.git">https://github.com/macewanCMPT395/PACattack.git</a></em>
+This will copy the github repository with the turtle notebook into your directory.</p>
+
+<p>Step 4: In the terminal type <em>cd pacturtle</em>, this is the directory you will be running the notebook from.</p>
+
+<p>Step 5: To run our developmental IPython copy that includes to turtle module type <em>python -m IPython</em>
+in the terminal. This will open a IPython Notebook in your default browser.</p>
+
+<p>Step 6: Click "new notebook" in the top right corner. This will create  new notebook where you can add and run python code.</p>
+
+<p>Step 7: Run some turtle commands (an example can be found if you click "i" or refer to Figure 1) and enjoy making fun pictures!</p>
+
+<p><strong><em>For Windows:</em></strong></p>
+
+<p>Step 1: Open the console.</p>
+
+<p>Step 2: You will need to go to the directory where you want this notebook stored. Change into that directory.</p>
+
+<p>Step 3: Within the directory and type <em>git clone <a href="https://github.com/macewanCMPT395/PACattack.git">https://github.com/macewanCMPT395/PACattack.git</a></em>
+This will copy the github repository with the turtle notebook into your directory.</p>
+
+<p>Step 4: In the console type <em>cd pacturtle</em>, this is the directory you will be running the notebook from.</p>
+
+<p>Step 5: To run our developmental notebook that includes to turtle module type_ python.exe -m IPython notebook_.</p>
+
+<p>If python is not a recognized alias you can also type <em>c:\python27\python.exe -m IPython notebook</em>.
+This will open a IPython Notebook in your default browser.</p>
+
+<p>Step 6: Click "new notebook" in the top right corner. This will create  new notebook where you can add and run python code.</p>
+
+<p>Step 7: Run some turtle commands (an example can be found if you click "i" or refer to Figure 1) and enjoy making fun pictures!</p>
 
 <h3>
-<a name="rather-drive-stick" class="anchor" href="#rather-drive-stick"><span class="octicon octicon-link"></span></a>Rather Drive Stick?</h3>
+<a name="contact-and-support" class="anchor" href="#contact-and-support"><span class="octicon octicon-link"></span></a>Contact and Support</h3>
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
-
-<h3>
-<a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
-
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
-
-<h3>
-<a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
-
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
+<p>Having trouble with using the turtle module? The team members for PACAttack are Claudine Gladue (<a href="https://github.com/claudinebull" class="user-mention">@claudinebull</a>), Andrew Kind (<a href="https://github.com/andrewkind" class="user-mention">@andrewkind</a>) and Paul Schmermund (<a href="https://github.com/prschmermund" class="user-mention">@prschmermund</a>).</p>
       </section>
       <footer>
         <p><small>Hosted on <a href="http://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>PACAttack Turtle by claudinebull</title>
+    <title>PACAttack Turtle by macewanCMPT395</title>
 
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
@@ -20,13 +20,12 @@
         <p class="header">Integrating a turtle module within IPython.</p>
 
         <ul>
-           <li class="link"><a class="link"href="developer.html">Developer's Page</a></li>
-          <li class="download"><a class="buttons" href="https://github.com/claudinebull/PACattack/zipball/master">Download ZIP</a></li>
-          <li class="download"><a class="buttons" href="https://github.com/claudinebull/PACattack/tarball/master">Download TAR</a></li>
-          <li><a class="buttons github" href="https://github.com/claudinebull/PACattack">View On GitHub</a></li>
+          <li class="download"><a class="buttons" href="https://github.com/macewanCMPT395/PACattack/zipball/master">Download ZIP</a></li>
+          <li class="download"><a class="buttons" href="https://github.com/macewanCMPT395/PACattack/tarball/master">Download TAR</a></li>
+          <li><a class="buttons github" href="https://github.com/macewanCMPT395/PACattack">View On GitHub</a></li>
         </ul>
 
-        <p class="header">This project is maintained by <a class="header name" href="https://github.com/claudinebull">claudinebull</a></p>
+        <p class="header">This project is maintained by <a class="header name" href="https://github.com/macewanCMPT395">macewanCMPT395</a></p>
 
 
       </header>
@@ -34,19 +33,19 @@
         <h3>
 <a name="ipython-notebook-turtle-module" class="anchor" href="#ipython-notebook-turtle-module"><span class="octicon octicon-link"></span></a>IPython Notebook Turtle Module</h3>
 
-<p>
-For this project we created a Turtle module to be used in the IPython Notebook. This was meant to mimic the Turtle module from Python. The IPython notebook is an interactive environment where the user can write Python code within their browser, without needed Python installed in their computer. </p>
+<p>The IPython notebook is an interactive environment where the user can write Python code within their browser, without needed Python installed in their computer. For this project we created a turtle module to be used in the IPython Notebook. This module that we created was meant to mimic the turtle module used in Python.</p>
 
-<p>The Turtle module is a module used for drawing shapes. The user controls the turtle with simple commands, such as moving forward, rotating, and putting the pen down or up. If the pen is down and the turtle is moving, it will draw a line under it's path. </p>
+<p>The Turtle module is a module used for drawing. The user controls the turtle with simple commands. The commands can manipulate the turtle so it moves, rotates, and while it's moving it can draw (or not draw, depending on whether the user has specified if the "pen" is up or down). If the pen is down and the turtle is moving, it will draw a line under it's path. </p>
 
 <h3>
 <a name="uses-for-the-turtle-module" class="anchor" href="#uses-for-the-turtle-module"><span class="octicon octicon-link"></span></a>Uses for the Turtle Module</h3>
 
-<p>Using the turtle is simple, and the results of coding actions are very visible. This makes it a great way to introduce programming to both children and adults. The turtle module is a great learning tool. </p>
+<p>Using the turtle is simple, and the results of coding actions are immediately visible. This makes it a great way to introduce programming to both children and adults. The visual feedback of the drawing turtle makes programming less abstract for someone who is new to programming. Because of the quick visual feedback of the user's commands, and the IPython Notebook's cell format (allowing the user to see the code directly above their turtle), programming becomes a easier, not only to learn, but also to teach. A teacher can easily teach this to the entire class, and have their students work on it individually because the IPython Notebook is browser based. Users can draw a variety of things using the turtle module.</p>
 
-<p>Because it is in the browser, a teacher can easily teach this to the entire class. </p>
+<h3>
+<a name="using-the-turtle-module" class="anchor" href="#using-the-turtle-module"><span class="octicon octicon-link"></span></a>Using the Turtle Module</h3>
 
-<p>By inputting the following commands into a new notebook page, the turtle can be easily manipulated:</p>
+<p>By importing the module the user can use code to create and manipulate the turtle. An example of commands you can use to draw with the turtle are:</p>
 
 <pre><code>import pacturtle 
 T = pacturtle.pacturtle() 
@@ -68,19 +67,19 @@ T.backward(100)
 
 <p>Step 1: Open the terminal. This can be done by clicking the magnifying glass in the top right corner of your screen and typing 'terminal'. You can also find the terminal application in Applications.</p>
 
-<p>Step 2: You will need to go to the directory where you want the IPython Notebook stored. Change into that directory. (Hint: You can create a directory by typing <em>mkdir nameofdirectory</em> and then to move into that directory within the terminal type <em>cd nameofdirectory</em>).</p>
+<p>Step 2: You will need to go to the directory where you want the IPython Notebook stored. (Hint: You can create a directory by typing <em>mkdir nameofdirectory</em> and then to move into that directory within the terminal type <em>cd nameofdirectory</em>).</p>
 
-<p>Step 3: Within the directory and type <em>git clone <a href="https://github.com/macewanCMPT395/PACattack.git">https://github.com/macewanCMPT395/PACattack.git</a></em>
-This will copy the github repository with the turtle notebook into your directory.</p>
+<p>Step 3: Type <em>git clone <a href="https://github.com/macewanCMPT395/PACattack.git">https://github.com/macewanCMPT395/PACattack.git</a></em> into the terminal.
+This will copy the github repository with the developmental IPython Notebook with the turtle module into your directory.</p>
 
 <p>Step 4: In the terminal type <em>cd pacturtle</em>, this is the directory you will be running the notebook from.</p>
 
-<p>Step 5: To run our developmental IPython copy that includes to turtle module type <em>python -m IPython</em>
-in the terminal. This will open a IPython Notebook in your default browser.</p>
+<p>Step 5: To run our developmental IPython application type <em>python -m IPython</em>
+in the terminal. This will open the IPython Notebook application in your default browser.</p>
 
-<p>Step 6: Click "new notebook" in the top right corner. This will create  new notebook where you can add and run python code.</p>
+<p>Step 6: Click the "new notebook" button in the top right corner. This will create  new notebook where you can add and run python code.</p>
 
-<p>Step 7: Run some turtle commands (an example can be found if you click "i" or refer to Figure 1) and enjoy making fun pictures!</p>
+<p>Step 7: Run some turtle commands (an example can be found if you click the button with "i" at the top of your newly created notebook, or refer to Figure 1) and enjoy making fun pictures!</p>
 
 <p><strong><em>For Windows:</em></strong></p>
 
@@ -89,16 +88,17 @@ in the terminal. This will open a IPython Notebook in your default browser.</p>
 <p>Step 2: You will need to go to the directory where you want this notebook stored. Change into that directory.</p>
 
 <p>Step 3: Type <em>git clone <a href="https://github.com/macewanCMPT395/PACattack.git">https://github.com/macewanCMPT395/PACattack.git</a></em>
-This will copy the github repository with the turtle notebook into your directory.</p>
+This will copy the github repository with the developmental IPython Notebook with the turtle module into your directory.</p>
 
 <p>Step 4: In the console type <em>cd pacturtle</em>, this is the directory you will be running the notebook from.</p>
 
-<p>Step 5: To run our developmental notebook that includes to turtle module type <em>python.exe -m IPython notebook</em>.</p>
+<p>Step 5: To run our developmental IPython application type <em>python.exe -m IPython notebook</em>.</p>
 
-<p>If python is not a recognized alias you can also type <em>c:\python27\python.exe -m IPython notebook</em> in the console. Change the directory accordingly to where you installed python.
-This will open a IPython Notebook in your default browser.</p>
+<p>If python is not a recognized alias you can also type <em>c:\python27\python.exe -m IPython notebook</em> in the console. Change the directory accordingly to where you installed python.</p>
 
-<p>Step 6: Click "new notebook" in the top right corner. This will create  new notebook where you can add and run python code.</p>
+<p>This will open a IPython Notebook in your default browser.</p>
+
+<p>Step 6: Click the "new notebook" button in the top right corner. This will create  new notebook where you can add and run python code.</p>
 
 <p>Step 7: Run some turtle commands (an example can be found if you click "i" or refer to Figure 1) and enjoy making fun pictures!</p>
 

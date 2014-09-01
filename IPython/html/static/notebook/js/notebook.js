@@ -1407,9 +1407,9 @@ var IPython = (function (IPython) {
     };
     
     /**
-     * Execute or render cell outputs and go into command mode.
+     *.
      * 
-     * @method execute_cell
+     * 
      */
     Notebook.prototype.execute_cell = function () {
     	//clear turtle timeout
@@ -1432,6 +1432,30 @@ var IPython = (function (IPython) {
      */
     Notebook.prototype.turtle_help = function () {
 		window.open('/static/notebook/js/helppage.html');
+    }
+	
+	 /**
+     * Claudine's requested button 
+     * 
+     *
+     */
+    Notebook.prototype.turtle_pause = function(){ 
+    }
+	
+	/**
+     * Andrew's requested button #1
+     * 
+     *
+     */
+    Notebook.prototype.ak1_button = function(){ 
+    }
+	
+	/**
+     * Andrews's requested button #2
+     * 
+     *
+     */
+    Notebook.prototype.ak2_button = function(){ 
     }
 
     /**
